@@ -1,0 +1,6 @@
+# Install the current directory as an editable package. Denpendencies required
+# for installing the package and running unit tests are defined in setup.py.
+-e .
+
+# Not tested with older versions of Django.
+Django==1.1.4  # Actually 0.96, but this is the oldest on pypi.
