@@ -44,7 +44,6 @@ def render_block_to_string(template_name, block, dictionary=None, context_instan
         context_instance.update(dictionary)
     else:
         context_instance = Context(dictionary)
-    t.render(context_instance)
     return render_template_block(t, block, context_instance)
 
 def direct_block_to_template(request, template, block, extra_context=None, mimetype=None, **kwargs):
