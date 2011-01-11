@@ -3,4 +3,4 @@
 -e .
 
 # Not tested with older versions of Django.
-Django==1.1.4  # Actually 0.96, but this is the oldest on pypi.
+Django==1.3
