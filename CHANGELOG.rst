@@ -3,6 +3,14 @@
 Changelog
 #########
 
+0.2.2 (January 10, 2011)
+========================
+
+*   Updated per
+    `comment 3466 on Django Snippet 942 <https://djangosnippets.org/snippets/942/#c3466>`_
+    to fix an issue with nested extends. The specific bug was not reproducible,
+    but the additional code shouldn't hurt.
+
 0.2.1 (August 27, 2010)
 =======================
 
