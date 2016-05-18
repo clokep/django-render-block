@@ -3,6 +3,14 @@
 Changelog
 #########
 
+0.2.1 (August 27, 2010)
+=======================
+
+*   Updated per
+    `comment 3237 on Django Snippet 942 <https://djangosnippets.org/snippets/942/#c3237>`_
+    to remove a pointless render. The specific bug was not reproducible, but the
+    code is extraneous.
+
 0.2 (August 4, 2008)
 ====================
 
