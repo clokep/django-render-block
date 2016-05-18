@@ -1,35 +1,34 @@
 from django.template.loader_tags import BlockNode, ExtendsNode
 from django.template import loader, Context, RequestContext, TextNode
 
-def get_template(template):
-    if isinstance(template, (tuple, list)):
-        return loader.select_template(template)
-    return loader.get_template(template)
 
 class BlockNotFound(Exception):
-    pass
+    """The expected block was not found."""
 
-def render_template_block(template, block, context):
+
+def _render_template_block(template, block_name, context):
     """
-    Renders a single block from a template. This template should have previously been rendered.
+    Renders a single block from a template. This template should have previously
+    been rendered.
     """
     template._render(context)
-    return render_template_block_nodelist(template.nodelist, block, context)
+    return _render_template_block_nodelist(template.nodelist, block_name, context)
 
-def render_template_block_nodelist(nodelist, block, context):
+
+def _render_template_block_nodelist(nodelist, block_name, context):
     """Recursively iterate over a node to find the wanted block."""
 
     # Attempt to find the wanted block in the current template.
     for node in nodelist:
         # If the wanted block was found, return it.
-        if isinstance(node, BlockNode) and node.name == block:
+        if isinstance(node, BlockNode) and node.name == block_name:
             return node.render(context)
 
         # If a node has children, recurse into them.
         for key in ('nodelist', 'nodelist_true', 'nodelist_false'):
             if hasattr(node, key):
                 try:
-                    return render_template_block_nodelist(getattr(node, key), block, context)
+                    return _render_template_block_nodelist(getattr(node, key), block_name, context)
                 except:
                     pass
 
@@ -38,40 +37,36 @@ def render_template_block_nodelist(nodelist, block, context):
     for node in nodelist:
         if isinstance(node, ExtendsNode):
             try:
-                return render_template_block(node.get_parent(context), block, context)
+                return _render_template_block(node.get_parent(context), block_name, context)
             except BlockNotFound:
                 pass
 
-    # The wanted block was not found.
+    # The wanted block_name was not found.
     raise BlockNotFound
 
-def render_block_to_string(template_name, block, dictionary=None, context_instance=None):
+
+def render_block_to_string(template_name, block_name, context=None, context_instance=None):
     """
     Loads the given template_name and renders the given block with the given dictionary as
     context. Returns a string.
-    """
-    dictionary = dictionary or {}
-    t = get_template(template_name)
-    if context_instance:
-        context_instance.update(dictionary)
-    else:
-        context_instance = Context(dictionary)
-    return render_template_block(t, block, context_instance)
 
-def direct_block_to_template(request, template, block, extra_context=None, mimetype=None, **kwargs):
+        template_name
+            The name of the template to load and render. If it?s a list of
+            template names, Django uses select_template() instead of
+            get_template() to find the template.
     """
-    Render a given block in a given template with any extra URL parameters in the context as
-    ``{{ params }}``.
-    """
-    if extra_context is None:
-    	extra_context = {}
-    dictionary = {'params': kwargs}
-    for key, value in extra_context.items():
-        if callable(value):
-            dictionary[key] = value()
-        else:
-            dictionary[key] = value
-    c = RequestContext(request, dictionary)
-    t = get_template(template)
-    t.render(c)
-    return HttpResponse(render_template_block(t, block, c), mimetype=mimetype)
+
+    context = context or {}
+
+    # Like render_to_string, template_name can be a string or a list/tuple.
+    if isinstance(template_name, (tuple, list)):
+        t = loader.select_template(template_name)
+    else:
+        t = loader.get_template(template_name)
+
+    if context_instance:
+        context_instance.update(context)
+    else:
+        context_instance = Context(context)
+
+    return _render_template_block(t, block_name, context_instance)
