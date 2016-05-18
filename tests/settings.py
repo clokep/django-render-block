@@ -1,7 +1,12 @@
 SECRET_KEY = 'not_empty'
 SITE_ID = 1
 
-DATABASE_ENGINE = 'sqlite3',
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    }
+}
 
 MIDDLEWARE_CLASSES = tuple()
 
