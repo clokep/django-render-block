@@ -19,7 +19,7 @@ In `test2.html`:
 
 ```jinja
 {% extends 'test1.html' %}
-{% block block1 %}block1 from test1{% endblock %}
+{% block block1 %}block1 from test2{% endblock %}
 ```
 
 And from the Python shell:
