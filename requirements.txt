@@ -3,4 +3,4 @@
 -e .
 
 # Not tested with older versions of Django.
-Django==1.7.11
+Django==1.8.13

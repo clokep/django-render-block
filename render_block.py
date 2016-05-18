@@ -7,11 +7,7 @@ class BlockNotFound(Exception):
 
 
 def _render_template_block(template, block_name, context):
-    """
-    Renders a single block from a template. This template should have previously
-    been rendered.
-    """
-    template._render(context)
+    """Renders a single block from a template."""
     return _render_template_block_nodelist(template.nodelist, block_name, context)
 
 
@@ -75,4 +71,9 @@ def render_block_to_string(template_name, block_name, context=None, context_inst
     else:
         context_instance = Context(context)
 
-    return _render_template_block(t, block_name, context_instance)
+    # TODO This only works with the Django backend currently.
+    t = t.template
+
+    # Bind the template to the context.
+    with context_instance.bind_template(t):
+        return _render_template_block(t, block_name, context_instance)
