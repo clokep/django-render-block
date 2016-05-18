@@ -17,21 +17,32 @@ def render_template_block(template, block, context):
     return render_template_block_nodelist(template.nodelist, block, context)
 
 def render_template_block_nodelist(nodelist, block, context):
+    """Recursively iterate over a node to find the wanted block."""
+
+    # Attempt to find the wanted block in the current template.
     for node in nodelist:
+        # If the wanted block was found, return it.
         if isinstance(node, BlockNode) and node.name == block:
             return node.render(context)
+
+        # If a node has children, recurse into them.
         for key in ('nodelist', 'nodelist_true', 'nodelist_false'):
             if hasattr(node, key):
                 try:
                     return render_template_block_nodelist(getattr(node, key), block, context)
                 except:
                     pass
+
+    # The wanted block was not found in this template, attempt to find it in any
+    # templates this inherits from.
     for node in nodelist:
         if isinstance(node, ExtendsNode):
             try:
                 return render_template_block(node.get_parent(context), block, context)
             except BlockNotFound:
                 pass
+
+    # The wanted block was not found.
     raise BlockNotFound
 
 def render_block_to_string(template_name, block, dictionary=None, context_instance=None):
