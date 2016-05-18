@@ -39,3 +39,7 @@ Attribution
 This is based on a few DjangoSnippets:
 
 * Originally https://djangosnippets.org/snippets/769/
+* Updated version https://djangosnippets.org/snippets/942/
+* A version of those https://github.com/uniphil/Django-Block-Render/
+* Also based on a StackOverflow answer: http://stackoverflow.com/questions/2687173/django-how-can-i-get-a-block-from-a-template
+* And https://github.com/BradWhittington/django-templated-email/blob/master/templated_email/utils.py
