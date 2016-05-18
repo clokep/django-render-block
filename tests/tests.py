@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from django.template import loader, Context
 
-from template import render_block_to_string
+from render_block import render_block_to_string
 
 
 class TestCases(TestCase):
