@@ -1,0 +1,27 @@
+# Python files.
+*.py[co]
+*.exe
+*.msi
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+sdist
+develop-eggs
+.installed.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+/htmlcov
+.tox
+
+# HTML files.
+*.html
