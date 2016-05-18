@@ -1,5 +1,5 @@
 from django.template.loader_tags import BlockNode, ExtendsNode
-from django.template import loader, Context, RequestContext, TextNode
+from django.template import loader, Context
 
 
 class BlockNotFound(Exception):
@@ -26,11 +26,17 @@ def _render_template_block_nodelist(nodelist, block_name, context):
 
         # If a node has children, recurse into them.
         for key in ('nodelist', 'nodelist_true', 'nodelist_false'):
-            if hasattr(node, key):
-                try:
-                    return _render_template_block_nodelist(getattr(node, key), block_name, context)
-                except:
-                    pass
+            # Try to get the recursive property, if it exists.
+            try:
+                new_node = getattr(node, key)
+            except AttributeError:
+                continue
+
+            # Try to find the block recursively.
+            try:
+                return _render_template_block_nodelist(new_node, block_name, context)
+            except BlockNotFound:
+                continue
 
     # The wanted block was not found in this template, attempt to find it in any
     # templates this inherits from.
