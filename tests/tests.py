@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from django.template import loader, Context
 
-from render_block import render_block_to_string
+from render_block import render_block_to_string, BlockNotFound
 
 
 class TestCases(TestCase):
@@ -23,3 +23,7 @@ class TestCases(TestCase):
         """This block is inherited from html1."""
         result = render_block_to_string('test2.html', 'block2', Context({}))
         self.assertEqual(result, u'block2 from test1')
+
+    def test_no_block(self):
+        """Check if there's no block available an exception is raised."""
+        self.assertRaises(BlockNotFound, render_block_to_string, 'test1.html', 'noblock')
