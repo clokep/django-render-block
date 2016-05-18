@@ -1,8 +1,9 @@
-from django.template.loader_tags import BlockNode, ExtendsNode
+from django.template.base import TemplateSyntaxError
 from django.template import loader, Context
+from django.template.loader_tags import BlockNode, ExtendsNode
 
 
-class BlockNotFound(Exception):
+class BlockNotFound(TemplateSyntaxError):
     """The expected block was not found."""
 
 
@@ -44,7 +45,7 @@ def _render_template_block_nodelist(nodelist, block_name, context):
                 pass
 
     # The wanted block_name was not found.
-    raise BlockNotFound
+    raise BlockNotFound("block with name '%s' does not exist" % block_name)
 
 
 def render_block_to_string(template_name, block_name, context=None, context_instance=None):
