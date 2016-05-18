@@ -21,17 +21,17 @@ def _render_template_block_nodelist(nodelist, block_name, context):
         if isinstance(node, BlockNode) and node.name == block_name:
             return node.render(context)
 
-        # If a node has children, recurse into them.
-        for key in ('nodelist', 'nodelist_true', 'nodelist_false'):
-            # Try to get the recursive property, if it exists.
+        # If a node has children, recurse into them. Based on
+        # django.template.base.Node.get_nodes_by_type.
+        for attr in node.child_nodelists:
             try:
-                new_node = getattr(node, key)
+                new_nodelist = getattr(node, attr)
             except AttributeError:
                 continue
 
             # Try to find the block recursively.
             try:
-                return _render_template_block_nodelist(new_node, block_name, context)
+                return _render_template_block_nodelist(new_nodelist, block_name, context)
             except BlockNotFound:
                 continue
 
