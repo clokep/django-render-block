@@ -1,6 +1,9 @@
 from django.template.base import TemplateSyntaxError
 from django.template import loader, Context
-from django.template.loader_tags import BlockNode, ExtendsNode
+from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
+                                         BlockContext,
+                                         BlockNode,
+                                         ExtendsNode)
 
 
 class BlockNotFound(TemplateSyntaxError):
@@ -15,10 +18,33 @@ def _render_template_block(template, block_name, context):
 def _render_template_block_nodelist(nodelist, block_name, context):
     """Recursively iterate over a node to find the wanted block."""
 
+    # The result.
+    rendered_block = None
+
     # Attempt to find the wanted block in the current template.
     for node in nodelist:
+        # ExtendsNode must be first, so this check is gratuitous after the first
+        # iteration.
+        if isinstance(node, ExtendsNode):
+            # Attempt to render this block in the parent, save it in case the
+            # only instance of this block is from the super-template. (We don't
+            # know this until we traverse the rest of the nodelist,
+            # unfortunately.)
+            try:
+                rendered_block = _render_template_block(node.get_parent(context), block_name, context)
+            except BlockNotFound:
+                pass
+
+
         # If the wanted block was found, return it.
         if isinstance(node, BlockNode) and node.name == block_name:
+            # Ensure there's a BlockContext before rendinering. This allows
+            # blocks in ExtendsNodes to be found by sub-templates (essentially,
+            # allowing {{ block.super }} to work.
+            if BLOCK_CONTEXT_KEY not in context.render_context:
+                context.render_context[BLOCK_CONTEXT_KEY] = BlockContext()
+            context.render_context[BLOCK_CONTEXT_KEY].push(block_name, node)
+
             return node.render(context)
 
         # If a node has children, recurse into them. Based on
@@ -35,14 +61,9 @@ def _render_template_block_nodelist(nodelist, block_name, context):
             except BlockNotFound:
                 continue
 
-    # The wanted block was not found in this template, attempt to find it in any
-    # templates this inherits from.
-    for node in nodelist:
-        if isinstance(node, ExtendsNode):
-            try:
-                return _render_template_block(node.get_parent(context), block_name, context)
-            except BlockNotFound:
-                pass
+    # If we found the wanted block_name, return it!
+    if rendered_block:
+        return rendered_block
 
     # The wanted block_name was not found.
     raise BlockNotFound("block with name '%s' does not exist" % block_name)

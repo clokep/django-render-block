@@ -48,8 +48,11 @@ class TestCases(TestCase):
         result = render_block_to_string('test4.html', 'block1', Context({}))
         self.assertEqual(result, u'block1 from test1')
 
-    @skip('Currently not supported.')
     def test_super(self):
         """Test that block.super works."""
         result = render_block_to_string('test3.html', 'block2', Context({}))
         self.assertEqual(result, u'block2 from test3 - block2 from test1')
+
+    @skip('Currently not supported.')
+    def test_subblock(self):
+        """Test that a block within a block works."""
