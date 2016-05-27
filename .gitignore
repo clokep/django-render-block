@@ -24,4 +24,4 @@ pip-log.txt
 .tox
 
 # HTML files.
-*.html
+/*.html
