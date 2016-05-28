@@ -3,6 +3,17 @@
 Changelog
 #########
 
+0.3 (May 27, 2016)
+==================
+
+*   Largely rewritten.
+*   Updated to support modern Django (1.8, 1.9):
+
+    *   Guards against different template backends.
+    *   Uses internal APIs for each node.
+    *   Removed ``context_instance`` parameter.
+    *   Support for calling ``{{ block.super }}``.
+
 0.2.2 (January 10, 2011)
 ========================
 

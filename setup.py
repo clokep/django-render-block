@@ -4,13 +4,18 @@ from setuptools import setup
 
 
 def long_description():
-    with codecs.open('README.rst', encoding='utf8') as f:
-        return f.read()
+    result = u''
+
+    for filename in ['README.rst', 'CHANGELOG.rst']:
+        with codecs.open(filename, encoding='utf8') as f:
+            result += f.read()
+
+    return result
 
 setup(
     name='django-render-block',
     py_modules=['render_block'],
-    version='0.1',
+    version='0.3',
     description='Render a particular block from a template to a string.',
     long_description=long_description(),
     author='Patrick Cloke',
