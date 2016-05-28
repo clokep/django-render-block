@@ -42,17 +42,15 @@ class TestCases(TestCase):
         result = render_block_to_string('test3.html', 'block1', Context({}))
         self.assertEqual(result, u'included template')
 
-    @skip('Currently not supported.')
-    def test_block_include(self):
-        """Test rendering of a block which is included from another template."""
-        result = render_block_to_string('test4.html', 'block1', Context({}))
-        self.assertEqual(result, u'block1 from test1')
-
     def test_super(self):
         """Test that block.super works."""
         result = render_block_to_string('test3.html', 'block2', Context({}))
         self.assertEqual(result, u'block2 from test3 - block2 from test1')
 
-    @skip('Currently not supported.')
     def test_subblock(self):
         """Test that a block within a block works."""
+        result = render_block_to_string('test5.html', 'block1', Context({}))
+        self.assertEqual(result, u'block3 from test5')
+
+        result = render_block_to_string('test5.html', 'block3', Context({}))
+        self.assertEqual(result, u'block3 from test5')
