@@ -24,8 +24,8 @@ def _render_template_block(template, block_name, context):
 def _render_template_block_nodelist(nodelist, block_name, context):
     """Recursively iterate over a node to find the wanted block."""
 
-    # The result.
-    rendered_block = None
+    # The result, if found via an ExtendsNode.
+    rendered_extends_block = None
 
     # Attempt to find the wanted block in the current template.
     for node in nodelist:
@@ -37,7 +37,7 @@ def _render_template_block_nodelist(nodelist, block_name, context):
             # know this until we traverse the rest of the nodelist,
             # unfortunately.)
             try:
-                rendered_block = _render_template_block(node.get_parent(context), block_name, context)
+                rendered_extends_block = _render_template_block(node.get_parent(context), block_name, context)
             except BlockNotFound:
                 pass
 
@@ -67,9 +67,9 @@ def _render_template_block_nodelist(nodelist, block_name, context):
             except BlockNotFound:
                 continue
 
-    # If we found the wanted block_name, return it!
-    if rendered_block:
-        return rendered_block
+    # No better node was found besides the one from an ExtendsNode. Return it!
+    if rendered_extends_block:
+        return rendered_extends_block
 
     # The wanted block_name was not found.
     raise BlockNotFound("block with name '%s' does not exist" % block_name)
@@ -81,7 +81,7 @@ def render_block_to_string(template_name, block_name, context=None):
     context. Returns a string.
 
         template_name
-            The name of the template to load and render. If it?s a list of
+            The name of the template to load and render. If it's a list of
             template names, Django uses select_template() instead of
             get_template() to find the template.
     """
