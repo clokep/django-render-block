@@ -1,19 +1,24 @@
-from django.core.exceptions import ImproperlyConfigured
-from django.template import Context, loader
-from django.template.backends.django import Template as DjangoTemplate
-from django.template.base import TemplateSyntaxError
+from __future__ import absolute_import
+
+from django.template import Context
 from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
                                          BlockContext,
                                          BlockNode,
                                          ExtendsNode)
 
-
-class BlockNotFound(TemplateSyntaxError):
-    """The expected block was not found."""
+from render_block.base import BlockNotFound
 
 
-class UnsupportedEngine(ImproperlyConfigured):
-    """An engine that we cannot render blocks from was used."""
+def django_render_block(template, block_name, context):
+    # Create a Django Context.
+    context_instance = Context(context)
+
+    # Get the underlying django.template.base.Template object.
+    template = template.template
+
+    # Bind the template to the context.
+    with context_instance.bind_template(template):
+        return _render_template_block(template, block_name, context_instance)
 
 
 def _render_template_block(template, block_name, context):
@@ -73,36 +78,3 @@ def _render_template_block_nodelist(nodelist, block_name, context):
 
     # The wanted block_name was not found.
     raise BlockNotFound("block with name '%s' does not exist" % block_name)
-
-
-def render_block_to_string(template_name, block_name, context=None):
-    """
-    Loads the given template_name and renders the given block with the given dictionary as
-    context. Returns a string.
-
-        template_name
-            The name of the template to load and render. If it's a list of
-            template names, Django uses select_template() instead of
-            get_template() to find the template.
-    """
-
-    # Like render_to_string, template_name can be a string or a list/tuple.
-    if isinstance(template_name, (tuple, list)):
-        t = loader.select_template(template_name)
-    else:
-        t = loader.get_template(template_name)
-
-    # Create the context instance.
-    context = context or {}
-    context_instance = Context(context)
-
-    # This only works with the Django backend.
-    if not isinstance(t, DjangoTemplate):
-        raise UnsupportedEngine('Can only render blocks from the Django template backend.')
-
-    # Get the underlying django.template.base.Template object.
-    t = t.template
-
-    # Bind the template to the context.
-    with context_instance.bind_template(t):
-        return _render_template_block(t, block_name, context_instance)
