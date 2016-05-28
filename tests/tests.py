@@ -60,9 +60,3 @@ class TestCases(TestCase):
         data = u'block2 from test5'
         result = render_block_to_string('test5.html', 'block2', {'foo': data})
         self.assertEqual(result, data)
-
-    def test_context_instance(self):
-        """Test passing in a Context instance instead of a dictionary."""
-        data = u'block2 from test5'
-        result = render_block_to_string('test5.html', 'block2', context_instance=Context({'foo': data}))
-        self.assertEqual(result, data)

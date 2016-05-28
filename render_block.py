@@ -69,7 +69,7 @@ def _render_template_block_nodelist(nodelist, block_name, context):
     raise BlockNotFound("block with name '%s' does not exist" % block_name)
 
 
-def render_block_to_string(template_name, block_name, context=None, context_instance=None):
+def render_block_to_string(template_name, block_name, context=None):
     """
     Loads the given template_name and renders the given block with the given dictionary as
     context. Returns a string.
@@ -80,18 +80,15 @@ def render_block_to_string(template_name, block_name, context=None, context_inst
             get_template() to find the template.
     """
 
-    context = context or {}
-
     # Like render_to_string, template_name can be a string or a list/tuple.
     if isinstance(template_name, (tuple, list)):
         t = loader.select_template(template_name)
     else:
         t = loader.get_template(template_name)
 
-    if context_instance:
-        context_instance.update(context)
-    else:
-        context_instance = Context(context)
+    # Create the context instance.
+    context = context or {}
+    context_instance = Context(context)
 
     # TODO This only works with the Django backend currently.
     t = t.template

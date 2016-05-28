@@ -31,6 +31,20 @@ And from the Python shell:
     >>> print render_block_to_string('test2.html', 'block2')
     u'block2 from test1'
 
+It can also accept a context as a ``dict`` (just like ``render_to_string``), in
+``test3.html``:
+
+.. code-block:: jinja
+
+    {% block block3 %}Render this {{ variable }}!{% endblock %}
+
+And from Python:
+
+.. code-block:: python
+
+    >>> print render_block_to_string('test3.html', 'block3', {'variable': 'test'})
+    u'Render this test!'
+
 Attribution
 ===========
 
