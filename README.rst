@@ -3,7 +3,8 @@ Django Render Block
 
 Render the content of a specific block tag from a Django template. Works for
 arbitrary template inheritance, even if a block is defined in the child template
-but not in the parent.
+but not in the parent. Generally it works like ``render_to_string`` from Django,
+but allows you to specify a block to render.
 
 Example:
 
@@ -44,6 +45,13 @@ And from Python:
 
     >>> print render_block_to_string('test3.html', 'block3', {'variable': 'test'})
     u'Render this test!'
+
+Requirements
+============
+
+This has been tested on Django 1.8 and 1.9. You must use the Django template
+rendering engine (the default) for any templates which you wish to render a
+block from.
 
 Attribution
 ===========

@@ -1,9 +1,8 @@
-from unittest import skip, TestCase
-
 from django.template import Context
+from django.test import override_settings, TestCase
 from django.utils import six
 
-from render_block import render_block_to_string, BlockNotFound
+from render_block import render_block_to_string, BlockNotFound, InvalidTemplateLibrary
 
 
 class TestCases(TestCase):
@@ -60,3 +59,20 @@ class TestCases(TestCase):
         data = u'block2 from test5'
         result = render_block_to_string('test5.html', 'block2', {'foo': data})
         self.assertEqual(result, data)
+
+    @override_settings(
+        TEMPLATES=[{
+            'BACKEND': 'django.template.backends.jinja2.Jinja2',
+            'DIRS': ['tests/templates'],
+            'APP_DIRS': True,
+        },]
+    )
+    def test_different_backend(self):
+        """
+        Ensure an exception is thrown if a different backed from the Django
+        backend is used.
+        """
+        with self.assertRaises(InvalidTemplateLibrary) as exc:
+            render_block_to_string('test1.html', 'noblock')
+        self.assertExceptionMessageEquals(exc.exception,
+                                          "Can only render blocks from the Django template backend.")

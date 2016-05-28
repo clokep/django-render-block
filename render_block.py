@@ -1,5 +1,11 @@
+from django.template import Context, loader
+from django.template.backends.django import Template as DjangoTemplate
 from django.template.base import TemplateSyntaxError
-from django.template import loader, Context
+try:
+    from django.template.library import InvalidTemplateLibrary
+except ImportError:
+    # Django < 1.9
+    from django.template.base import InvalidTemplateLibrary
 from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
                                          BlockContext,
                                          BlockNode,
@@ -90,7 +96,11 @@ def render_block_to_string(template_name, block_name, context=None):
     context = context or {}
     context_instance = Context(context)
 
-    # TODO This only works with the Django backend currently.
+    # This only works with the Django backend.
+    if not isinstance(t, DjangoTemplate):
+        raise InvalidTemplateLibrary('Can only render blocks from the Django template backend.')
+
+    # Get the underlying django.template.base.Template object.
     t = t.template
 
     # Bind the template to the context.
