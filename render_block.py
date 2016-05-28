@@ -1,11 +1,7 @@
+from django.core.exceptions import ImproperlyConfigured
 from django.template import Context, loader
 from django.template.backends.django import Template as DjangoTemplate
 from django.template.base import TemplateSyntaxError
-try:
-    from django.template.library import InvalidTemplateLibrary
-except ImportError:
-    # Django < 1.9
-    from django.template.base import InvalidTemplateLibrary
 from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
                                          BlockContext,
                                          BlockNode,
@@ -14,6 +10,10 @@ from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
 
 class BlockNotFound(TemplateSyntaxError):
     """The expected block was not found."""
+
+
+class UnsupportedEngine(ImproperlyConfigured):
+    """An engine that we cannot render blocks from was used."""
 
 
 def _render_template_block(template, block_name, context):
@@ -98,7 +98,7 @@ def render_block_to_string(template_name, block_name, context=None):
 
     # This only works with the Django backend.
     if not isinstance(t, DjangoTemplate):
-        raise InvalidTemplateLibrary('Can only render blocks from the Django template backend.')
+        raise UnsupportedEngine('Can only render blocks from the Django template backend.')
 
     # Get the underlying django.template.base.Template object.
     t = t.template

@@ -6,7 +6,14 @@ arbitrary template inheritance, even if a block is defined in the child template
 but not in the parent. Generally it works like ``render_to_string`` from Django,
 but allows you to specify a block to render.
 
-Example:
+Requirements
+============
+
+Django Render Block supports Django 1.8 and 1.9. You must use the Django
+template rendering engine (the default) to render specific blocks.
+
+Examples
+========
 
 In ``test1.html``:
 
@@ -46,12 +53,47 @@ And from Python:
     >>> print render_block_to_string('test3.html', 'block3', {'variable': 'test'})
     u'Render this test!'
 
-Requirements
-============
+API Reference
+=============
 
-This has been tested on Django 1.8 and 1.9. You must use the Django template
-rendering engine (the default) for any templates which you wish to render a
-block from.
+The API is simple and attempts to mirror the built-in ``render_to_string`` API.
+
+``render_block_to_string(template_name, block_name, context=None)``
+
+    ``template_name``
+        The name of the template to load and render. If it’s a list of template
+        names, Django uses ``select_template()`` instead of ``get_template()``
+        to find the template.
+
+    ``block_name``
+        The name of the block to render from the above template.
+
+    ``context``
+        A ``dict`` to be used as the template’s context for rendering.
+
+        ``context`` is now optional. An empty context will be used if it isn’t
+        provided.
+
+Exceptions
+----------
+
+Like ``render_to_string`` this will raise the following exceptions:
+
+    ``TemplateDoesNotExists``
+        Raised if the template(s) specified by ``template_name`` cannot be
+        loaded.
+
+    ``TemplateSyntaxError``
+        Raised if the loaded template contains invalid syntax.
+
+There are also two additional errors that can be raised:
+
+    ``BlockNotFound``
+        Raised if the block given by ``block_name`` does not exist in the
+        template.
+
+    ``UnsupportedEngine``
+        Raised if a template backend besides the Django backend is used.
 
 Attribution
 ===========

@@ -2,7 +2,7 @@ from django.template import Context
 from django.test import override_settings, TestCase
 from django.utils import six
 
-from render_block import render_block_to_string, BlockNotFound, InvalidTemplateLibrary
+from render_block import render_block_to_string, BlockNotFound, UnsupportedEngine
 
 
 class TestCases(TestCase):
@@ -72,7 +72,7 @@ class TestCases(TestCase):
         Ensure an exception is thrown if a different backed from the Django
         backend is used.
         """
-        with self.assertRaises(InvalidTemplateLibrary) as exc:
+        with self.assertRaises(UnsupportedEngine) as exc:
             render_block_to_string('test1.html', 'noblock')
         self.assertExceptionMessageEquals(exc.exception,
                                           "Can only render blocks from the Django template backend.")
