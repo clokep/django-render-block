@@ -13,21 +13,21 @@ class TestCases(TestCase):
 
     def test_block(self):
         """Test rendering an individual block."""
-        result = render_block_to_string('test1.html', 'block1', Context({}))
+        result = render_block_to_string('test1.html', 'block1')
         self.assertEqual(result, u'block1 from test1')
 
         # No reason this shouldn't work, but just in case.
-        result = render_block_to_string('test1.html', 'block2', Context({}))
+        result = render_block_to_string('test1.html', 'block2')
         self.assertEqual(result, u'block2 from test1')
 
     def test_override(self):
         """This block is overridden in test2."""
-        result = render_block_to_string('test2.html', 'block1', Context({}))
+        result = render_block_to_string('test2.html', 'block1')
         self.assertEqual(result, u'block1 from test2')
 
     def test_inherit(self):
         """This block is inherited from test1."""
-        result = render_block_to_string('test2.html', 'block2', Context({}))
+        result = render_block_to_string('test2.html', 'block2')
         self.assertEqual(result, u'block2 from test1')
 
     def test_no_block(self):
@@ -39,18 +39,30 @@ class TestCases(TestCase):
 
     def test_include(self):
         """Ensure that an include tag in a block still works."""
-        result = render_block_to_string('test3.html', 'block1', Context({}))
+        result = render_block_to_string('test3.html', 'block1')
         self.assertEqual(result, u'included template')
 
     def test_super(self):
         """Test that block.super works."""
-        result = render_block_to_string('test3.html', 'block2', Context({}))
+        result = render_block_to_string('test3.html', 'block2')
         self.assertEqual(result, u'block2 from test3 - block2 from test1')
 
     def test_subblock(self):
         """Test that a block within a block works."""
-        result = render_block_to_string('test5.html', 'block1', Context({}))
+        result = render_block_to_string('test5.html', 'block1')
         self.assertEqual(result, u'block3 from test5')
 
-        result = render_block_to_string('test5.html', 'block3', Context({}))
+        result = render_block_to_string('test5.html', 'block3')
         self.assertEqual(result, u'block3 from test5')
+
+    def test_context(self):
+        """Test that a context is properly rendered in a template."""
+        data = u'block2 from test5'
+        result = render_block_to_string('test5.html', 'block2', {'foo': data})
+        self.assertEqual(result, data)
+
+    def test_context_instance(self):
+        """Test passing in a Context instance instead of a dictionary."""
+        data = u'block2 from test5'
+        result = render_block_to_string('test5.html', 'block2', context_instance=Context({'foo': data}))
+        self.assertEqual(result, data)
