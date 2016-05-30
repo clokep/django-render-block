@@ -1,6 +1,9 @@
 Django Render Block
 ###################
 
+.. image:: https://travis-ci.org/clokep/django-render-block.svg?branch=master
+    :target: https://travis-ci.org/clokep/django-render-block
+
 Render the content of a specific block tag from a Django template. Works for
 arbitrary template inheritance, even if a block is defined in the child template
 but not in the parent. Generally it works like ``render_to_string`` from Django,
