@@ -46,7 +46,6 @@ def _render_template_block_nodelist(nodelist, block_name, context):
             except BlockNotFound:
                 pass
 
-
         # If the wanted block was found, return it.
         if isinstance(node, BlockNode) and node.name == block_name:
             # Ensure there's a BlockContext before rendinering. This allows

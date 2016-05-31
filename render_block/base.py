@@ -6,10 +6,11 @@ from django.template.backends.django import Template as DjangoTemplate
 from render_block.django import django_render_block
 from render_block.exceptions import BlockNotFound, UnsupportedEngine
 
+
 def render_block_to_string(template_name, block_name, context=None):
     """
-    Loads the given template_name and renders the given block with the given dictionary as
-    context. Returns a string.
+    Loads the given template_name and renders the given block with the given
+    dictionary as context. Returns a string.
 
         template_name
             The name of the template to load and render. If it's a list of
@@ -30,4 +31,5 @@ def render_block_to_string(template_name, block_name, context=None):
     if isinstance(t, DjangoTemplate):
         return django_render_block(t, block_name, context)
     else:
-        raise UnsupportedEngine('Can only render blocks from the Django template backend.')
+        raise UnsupportedEngine(
+            'Can only render blocks from the Django template backend.')
