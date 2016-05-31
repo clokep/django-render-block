@@ -1,18 +1,10 @@
 from __future__ import absolute_import
 
-from django.core.exceptions import ImproperlyConfigured
 from django.template import loader
 from django.template.backends.django import Template as DjangoTemplate
-from django.template.base import TemplateSyntaxError
 
-
-class BlockNotFound(TemplateSyntaxError):
-    """The expected block was not found."""
-
-
-class UnsupportedEngine(ImproperlyConfigured):
-    """An engine that we cannot render blocks from was used."""
-
+from render_block.django import django_render_block
+from render_block.exceptions import BlockNotFound, UnsupportedEngine
 
 def render_block_to_string(template_name, block_name, context=None):
     """
@@ -36,7 +28,6 @@ def render_block_to_string(template_name, block_name, context=None):
 
     # The Django backend.
     if isinstance(t, DjangoTemplate):
-        from render_block.django import django_render_block as render_template_block
-        return render_template_block(t, block_name, context)
+        return django_render_block(t, block_name, context)
     else:
         raise UnsupportedEngine('Can only render blocks from the Django template backend.')

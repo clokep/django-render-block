@@ -6,7 +6,7 @@ from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
                                          BlockNode,
                                          ExtendsNode)
 
-from render_block.base import BlockNotFound
+from render_block.exceptions import BlockNotFound
 
 
 def django_render_block(template, block_name, context):

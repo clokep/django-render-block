@@ -1,3 +1,2 @@
-from render_block.base import (BlockNotFound,
-                               render_block_to_string,
-                               UnsupportedEngine)
+from render_block.base import render_block_to_string
+from render_block.exceptions import BlockNotFound, UnsupportedEngine
