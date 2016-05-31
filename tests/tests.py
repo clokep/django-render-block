@@ -62,7 +62,7 @@ class TestCases(TestCase):
 
     @override_settings(
         TEMPLATES=[{
-            'BACKEND': 'django.template.backends.jinja2.Jinja2',
+            'BACKEND': 'django.template.backends.dummy.TemplateStrings',
             'DIRS': ['tests/templates'],
             'APP_DIRS': True,
         },]
