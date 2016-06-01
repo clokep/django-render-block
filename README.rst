@@ -98,6 +98,16 @@ There are also two additional errors that can be raised:
     ``UnsupportedEngine``
         Raised if a template backend besides the Django backend is used.
 
+Contributing
+============
+
+If you find a bug or have an idea for an improvement to Django Render Block,
+please
+`file an issue <https://github.com/clokep/django-render-block/issues/new>`_ or
+provide a pull request! Check the
+`list of issues <https://github.com/clokep/django-render-block/issues/>`_ for
+ideas of what to work on.
+
 Attribution
 ===========
 

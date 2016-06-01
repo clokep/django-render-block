@@ -3,6 +3,12 @@
 Changelog
 #########
 
+0.3.1 (June 1, 2016)
+====================
+
+*   Refactoring to make more generic (for potentially supporting multiple
+    templating engines).
+
 0.3 (May 27, 2016)
 ==================
 

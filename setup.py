@@ -1,6 +1,6 @@
 import codecs
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 def long_description():
@@ -14,8 +14,8 @@ def long_description():
 
 setup(
     name='django-render-block',
-    py_modules=['render_block'],
-    version='0.3',
+    packages=find_packages(),
+    version='0.3.1',
     description='Render a particular block from a template to a string.',
     long_description=long_description(),
     author='Patrick Cloke',
