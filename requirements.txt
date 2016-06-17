@@ -4,3 +4,4 @@
 
 # Not tested with older versions of Django.
 Django==1.8.13
+Jinja2==2.8

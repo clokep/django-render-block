@@ -1,0 +1,5 @@
+{% extends 'test1.html' %}
+
+{% block block1 %}{% include "include.html" %}{% endblock %}
+
+{% block block2 %}block2 from test3 - {{ super() }}{% endblock %}

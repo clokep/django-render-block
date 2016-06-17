@@ -3,6 +3,12 @@
 Changelog
 #########
 
+0.4 (xxxx)
+==========
+
+*   Initial support for using the `Jinja2 <http://jinja.pocoo.org/>`_ templating
+    engine. See README for caveats.
+
 0.3.1 (June 1, 2016)
 ====================
 
