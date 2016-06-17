@@ -1,3 +1,5 @@
+from unittest import skip
+
 from django.template import Context
 from django.test import override_settings, TestCase
 from django.utils import six
@@ -106,6 +108,7 @@ class TestJinja2(TestCase):
         result = render_block_to_string('test2.html', 'block1')
         self.assertEqual(result, u'block1 from test2')
 
+    @skip('Not currently supported.')
     def test_inherit(self):
         """This block is inherited from test1."""
         result = render_block_to_string('test2.html', 'block2')
@@ -123,6 +126,7 @@ class TestJinja2(TestCase):
         result = render_block_to_string('test3_jinja2.html', 'block1')
         self.assertEqual(result, u'included template')
 
+    @skip('Not currently supported.')
     def test_super(self):
         """Test that super() works."""
         result = render_block_to_string('test3_jinja2.html', 'block2')
