@@ -9,11 +9,18 @@ arbitrary template inheritance, even if a block is defined in the child template
 but not in the parent. Generally it works like ``render_to_string`` from Django,
 but allows you to specify a block to render.
 
+Features
+========
+
+*   Render a specific block from a template
+*   Fully supports the Django templating engine
+*   Partially supports the `Jinja2 <http://jinja.pocoo.org/>`_ engine: it does
+    not currently process the ``extends`` tag.
+
 Requirements
 ============
 
-Django Render Block supports Django 1.8 and 1.9. You must use the Django
-template rendering engine (the default) to render specific blocks.
+Django Render Block supports Django 1.8 and 1.9.
 
 Examples
 ========
