@@ -3,11 +3,12 @@
 Changelog
 #########
 
-0.4 (xxxx)
-==========
+0.4 (August 4, 2016)
+====================
 
 *   Initial support for using the `Jinja2 <http://jinja.pocoo.org/>`_ templating
     engine. See README for caveats.
+*   Support Django 1.10.
 
 0.3.1 (June 1, 2016)
 ====================
