@@ -9,6 +9,7 @@ Changelog
 *   Initial support for using the `Jinja2 <http://jinja.pocoo.org/>`_ templating
     engine. See README for caveats.
 *   Support Django 1.10.
+*   Support Python 3.
 
 0.3.1 (June 1, 2016)
 ====================
