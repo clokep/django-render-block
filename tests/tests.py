@@ -32,11 +32,6 @@ class TestDjango(TestCase):
         result = render_block_to_string('test2.html', 'block2')
         self.assertEqual(result, u'block2 from test1')
 
-    def test_inherit2(self):
-        """This block is inherited from test1."""
-        result = render_block_to_string('test_sub.html', 'base')
-        self.assertEqual(result, u'bar')
-
     def test_no_block(self):
         """Check if there's no block available an exception is raised."""
         with self.assertRaises(BlockNotFound) as exc:
@@ -61,6 +56,21 @@ class TestDjango(TestCase):
 
         result = render_block_to_string('test5.html', 'block3')
         self.assertEqual(result, u'block3 from test5')
+
+    def test_subblock_no_parent(self):
+        """
+        Test that a block within a block works if the parent block is only found
+        in the base template.
+
+        This is very similar to test_subblock, but the templates differ. In this
+        test the sub-template does not replace the entire block from the parent
+        template.
+        """
+        result = render_block_to_string('test_sub.html', 'base')
+        self.assertEqual(result, u'\n\nbar\n\n')
+
+        result = render_block_to_string('test_sub.html', 'first')
+        self.assertEqual(result, u'\nbar\n')
 
     def test_context(self):
         """Test that a context is properly rendered in a template."""
