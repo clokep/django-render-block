@@ -3,13 +3,20 @@
 Changelog
 #########
 
+0.5 (xxxx)
+==========
+
+*   Fixes a major issue with inheriting templates and rendering a block found in
+    the parent template, but overwriting part of it in the child template.
+    (`#8 <https://github.com/clokep/django-render-block/pull/8>`_)
+
 0.4 (August 4, 2016)
 ====================
 
 *   Initial support for using the `Jinja2 <http://jinja.pocoo.org/>`_ templating
-    engine. See README for caveats.
-*   Support Django 1.10.
-*   Support Python 3.
+    engine. See README for caveats. (`#3 <https://github.com/clokep/django-render-block/pull/3>`_)
+*   Support Django 1.10. (`#5 <https://github.com/clokep/django-render-block/pull/5>`_)
+*   Support Python 3. (`#6 <https://github.com/clokep/django-render-block/pull/6>`_)
 
 0.3.1 (June 1, 2016)
 ====================
