@@ -37,6 +37,7 @@ def _render_template_block_nodelist(nodelist, block_name, context):
     # overriding sub-blocks to work).
     if BLOCK_CONTEXT_KEY not in context.render_context:
         context.render_context[BLOCK_CONTEXT_KEY] = BlockContext()
+    block_context = context.render_context[BLOCK_CONTEXT_KEY]
 
     # Attempt to find the wanted block in the current template.
     for node in nodelist:
@@ -48,10 +49,14 @@ def _render_template_block_nodelist(nodelist, block_name, context):
             # the rest of the nodelist, unfortunately.)
             extends_node = node
 
+            # Add the parent nodes blocks to the block_context.
+            block_context.add_blocks(
+                {n.name: n for n in node.get_parent(context).nodelist.get_nodes_by_type(BlockNode)})
+
         # If the wanted block was found, return it.
         if isinstance(node, BlockNode):
             # No matter what, add this block to the rendering context.
-            context.render_context[BLOCK_CONTEXT_KEY].push(node.name, node)
+            block_context.push(node.name, node)
 
             # If the name matches, you're all set and we found the block!
             if node.name == block_name:
