@@ -49,6 +49,10 @@ class TestDjango(TestCase):
         result = render_block_to_string('test3_django.html', 'block2')
         self.assertEqual(result, u'block2 from test3 - block2 from test1')
 
+    def test_multi_super(self):
+        result = render_block_to_string('test6_django.html', 'block2')
+        self.assertEqual(result, u'block2 from test6 - block2 from test3 - block2 from test1')
+
     def test_subblock(self):
         """Test that a block within a block works."""
         result = render_block_to_string('test5.html', 'block1')
@@ -146,6 +150,11 @@ class TestJinja2(TestCase):
         """Test that super() works."""
         result = render_block_to_string('test3_jinja2.html', 'block2')
         self.assertEqual(result, u'block2 from test3 - block2 from test1')
+
+    @skip('Not currently supported.')
+    def test_multi_super(self):
+        result = render_block_to_string('test6_jinja2.html', 'block2')
+        self.assertEqual(result, u'block2 from test6 - block2 from test3 - block2 from test1')
 
     def test_subblock(self):
         """Test that a block within a block works."""
