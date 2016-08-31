@@ -21,9 +21,20 @@ def django_render_block(template, block_name, context):
     with context_instance.bind_template(template):
         # Before trying to render the template, we need to traverse the tree of
         # parent templates and find all blocks in them.
-        _build_block_context(template, context_instance)
+        parent_node = _build_block_context(template, context_instance)
 
-        return _render_template_block(template, block_name, context_instance)
+        try:
+            return _render_template_block(template, block_name, context_instance)
+        except BlockNotFound:
+            # The block wasn't found in the current template.
+
+            # If there's no parent template (i.e. no ExtendsNode), re-raise.
+            if not parent_node:
+                raise
+
+            # Check the parent template for this block.
+            return _render_template_block(
+                parent_node.get_parent(context_instance), block_name, context_instance)
 
 
 def _build_block_context(template, context):
@@ -47,7 +58,7 @@ def _build_block_context(template, context):
                 {n.name: n for n in compiled_parent.nodelist.get_nodes_by_type(BlockNode)})
 
             _build_block_context(compiled_parent, context)
-            return
+            return node
 
         # The ExtendsNode has to be the first non-text node.
         if isinstance(node, TextNode):
@@ -62,26 +73,12 @@ def _render_template_block(template, block_name, context):
 def _render_template_block_nodelist(nodelist, block_name, context):
     """Recursively iterate over a node to find the wanted block."""
 
-    # An ExtendsNode, if necessary.
-    extends_node = None
-
-    # This is guaranteeded to exist from above.
-    block_context = context.render_context[BLOCK_CONTEXT_KEY]
-
     # Attempt to find the wanted block in the current template.
     for node in nodelist:
-        # ExtendsNode must be the first non-TextNode, so this check is quickly
-        # gratuitous.
-        if isinstance(node, ExtendsNode):
-            # Save the parent template in case the only instance of this block
-            # is from the super-template. (We don't know this until we traverse
-            # the rest of the nodelist, unfortunately.)
-            extends_node = node
-
         # If the wanted block was found, return it.
         if isinstance(node, BlockNode):
             # No matter what, add this block to the rendering context.
-            block_context.push(node.name, node)
+            context.render_context[BLOCK_CONTEXT_KEY].push(node.name, node)
 
             # If the name matches, you're all set and we found the block!
             if node.name == block_name:
@@ -100,11 +97,6 @@ def _render_template_block_nodelist(nodelist, block_name, context):
                 return _render_template_block_nodelist(new_nodelist, block_name, context)
             except BlockNotFound:
                 continue
-
-    # If the node was not found in this template, but there is an ExtendsNode,
-    # check it for the wanted block.
-    if extends_node:
-        return _render_template_block(node.get_parent(context), block_name, context)
 
     # The wanted block_name was not found.
     raise BlockNotFound("block with name '%s' does not exist" % block_name)
