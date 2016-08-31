@@ -32,6 +32,11 @@ class TestDjango(TestCase):
         result = render_block_to_string('test2.html', 'block2')
         self.assertEqual(result, u'block2 from test1')
 
+    def test_inherit2(self):
+        """This block is inherited from test1."""
+        result = render_block_to_string('test_sub.html', 'base')
+        self.assertEqual(result, u'bar')
+
     def test_no_block(self):
         """Check if there's no block available an exception is raised."""
         with self.assertRaises(BlockNotFound) as exc:
