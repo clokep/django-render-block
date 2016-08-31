@@ -21,7 +21,7 @@ def django_render_block(template, block_name, context):
     with context_instance.bind_template(template):
         # Before trying to render the template, we need to traverse the tree of
         # parent templates and find all blocks in them.
-        parent_node = _build_block_context(template, context_instance)
+        extends_node = _build_block_context(template, context_instance)
 
         try:
             return _render_template_block(template, block_name, context_instance)
@@ -29,12 +29,12 @@ def django_render_block(template, block_name, context):
             # The block wasn't found in the current template.
 
             # If there's no parent template (i.e. no ExtendsNode), re-raise.
-            if not parent_node:
+            if not extends_node:
                 raise
 
             # Check the parent template for this block.
             return _render_template_block(
-                parent_node.get_parent(context_instance), block_name, context_instance)
+                extends_node.get_parent(context_instance), block_name, context_instance)
 
 
 def _build_block_context(template, context):
@@ -61,7 +61,7 @@ def _build_block_context(template, context):
             return node
 
         # The ExtendsNode has to be the first non-text node.
-        if isinstance(node, TextNode):
+        if not isinstance(node, TextNode):
             break
 
 
