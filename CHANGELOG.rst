@@ -3,8 +3,8 @@
 Changelog
 #########
 
-0.5 (xxxx)
-==========
+0.5 (September 1, 2016)
+=======================
 
 *   Fixes a major issue with inheriting templates and rendering a block found in
     the parent template, but overwriting part of it in the child template.
