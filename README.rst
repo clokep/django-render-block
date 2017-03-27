@@ -14,7 +14,7 @@ Features
 
 *   Render a specific block from a template
 *   Fully supports the Django templating engine
-*   Partially supports the `Jinja2 <http://jinja.pocoo.org/>`_ engine: it does
+*   Partially supports the `Jinja2 <http://jinja.pocoo.org/>`__ engine: it does
     not currently process the ``extends`` tag.
 
 Requirements
@@ -120,8 +120,9 @@ Attribution
 
 This is based on a few sources:
 
-* Originally `Django Snippet 769 <https://djangosnippets.org/snippets/769/>`_
-* Updated version `Django Snippet 942 <https://djangosnippets.org/snippets/942/>`_
+* Originally `Django Snippet 769 <https://djangosnippets.org/snippets/769/>`__
+* Updated version `Django Snippet 942 <https://djangosnippets.org/snippets/942/>`__
 * A version of the snippets was ported as `Django-Block-Render <https://github.com/uniphil/Django-Block-Render/>`_
 * Additionally inspired by part of `django-templated-email <https://github.com/BradWhittington/django-templated-email/blob/master/templated_email/utils.py>`_
 * Also based on a `StackOverflow answer 2687173 <http://stackoverflow.com/questions/2687173/django-how-can-i-get-a-block-from-a-template>`_
+
