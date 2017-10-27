@@ -3,6 +3,11 @@
 Changelog
 #########
 
+next (xxx xx, xxxx)
+===================
+
+*   Officially support Django 1.11 and Django 2.0.
+
 0.5 (September 1, 2016)
 =======================
 

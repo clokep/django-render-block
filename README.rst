@@ -20,7 +20,7 @@ Features
 Requirements
 ============
 
-Django Render Block supports Django 1.8 and 1.9.
+Django Render Block supports Django 1.8, 1.9, 1.10, 1.11, and 2.0.
 
 Examples
 ========
