@@ -84,14 +84,16 @@ class TestDjango(TestCase):
 
     def test_issue12_empty_block(self):
         result = render_block_to_string('test_issue#12_top.html', 'block2', {'foo': 'xxx'})
-        self.assertEqual(result, '\n')
+        self.assertEqual(result, u'content from block 2')
+
+    def test_issue12_intermediate_block(self):
+        expected_result = u'content from block 1\nSome more text, which could be replaced\n\n'
+        result = render_block_to_string('test_issue#12_intermediate.html', 'block1')
+        self.assertEqual(result, expected_result)
 
     def test_issue12_subblock(self):
-        data = u'''content from block 1
-Some more text, which could possibly be overwritten
-Should contain another block from test_issue#12_top.html
-'''
-        result = render_block_to_string('test_issue#12_top.html', 'block_1')
+        data = u'content from block 1\nSome more text, which could be replaced\nHere is content from test_issue#12_top.html\n'
+        result = render_block_to_string('test_issue#12_top.html', 'block1')
         self.assertEqual(result, data)
 
     @override_settings(

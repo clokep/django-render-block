@@ -1,8 +1,7 @@
+{# And even more comments #}
 {% extends 'test_issue#12_base.txt' %}
 
-{% block block1 %}
-{{ block.super }}
-Some more text, which could possibly be overwritten
-{% block block1_more_content %}
-{% endblock %}
+{% block block1 %}{{ block.super }}
+Some more text, which could be replaced
+{% block block1_more_content %}{% endblock %}
 {% endblock %}
