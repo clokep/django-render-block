@@ -67,13 +67,6 @@ def _build_block_context(template, context):
 
 def _render_template_block(template, block_name, context):
     """Renders a single block from a template."""
-    # bastbnl issue #12. Sorry for ruining a beautiful example of recursion ;-) 
-    if block_name in context.render_context[BLOCK_CONTEXT_KEY].blocks:
-        nodes = context.render_context[BLOCK_CONTEXT_KEY].blocks[block_name]
-        if len(nodes) and isinstance(nodes[0], BlockNode):
-            if block_name == nodes[0].name:
-                return nodes[0].render(context)
-    # Fallback for a template without any inheritance
     return _render_template_block_nodelist(template.nodelist, block_name, context)
 
 
