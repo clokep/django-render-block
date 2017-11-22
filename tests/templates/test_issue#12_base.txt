@@ -1,0 +1,8 @@
+{% block block_1 %}
+content from block 1
+{% endblock block_1 %}
+
+{% block block_2 %}
+content from block 2
+{% endblock %}
+

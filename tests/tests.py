@@ -82,6 +82,18 @@ class TestDjango(TestCase):
         result = render_block_to_string('test5.html', 'block2', {'foo': data})
         self.assertEqual(result, data)
 
+    def test_issue12_empty_block(self):
+        result = render_block_to_string('test_issue#12_top.html', 'block2', {'foo': 'xxx'})
+        self.assertEqual(result, '\n')
+
+    def test_issue12_subblock(self):
+        data = u'''content from block 1
+Some more text, which could possibly be overwritten
+Should contain another block from test_issue#12_top.html
+'''
+        result = render_block_to_string('test_issue#12_top.html', 'block_1')
+        self.assertEqual(result, data)
+
     @override_settings(
         TEMPLATES=[{
             'BACKEND': 'django.template.backends.dummy.TemplateStrings',
