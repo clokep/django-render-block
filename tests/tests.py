@@ -1,7 +1,6 @@
 from unittest import skip
 
-from django.template import Context
-from django.test import override_settings, TestCase
+from django.test import override_settings, TestCase, RequestFactory
 from django.utils import six
 
 from render_block import render_block_to_string, BlockNotFound, UnsupportedEngine
@@ -98,6 +97,13 @@ class TestDjango(TestCase):
             render_block_to_string('test1.html', 'noblock')
         self.assertExceptionMessageEquals(exc.exception,
                                           "Can only render blocks from the Django template backend.")
+
+    def test_request_context(self):
+        """Test that a request context data are properly rendered in a template."""
+        request = RequestFactory().get('dummy-url')
+        result = render_block_to_string('test_request_context.html', 'block1', {}, request)
+
+        self.assertEqual(result, u'/dummy-url')
 
 
 @override_settings(
