@@ -1,8 +1,7 @@
 from __future__ import absolute_import
 
-from django.template import Context, RequestContext
 from django.template.base import TextNode
-from django.template.context import make_context
+from django.template.context import Context, RequestContext
 from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
                                          BlockContext,
                                          BlockNode,
