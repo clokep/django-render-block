@@ -12,6 +12,7 @@ def long_description():
 
     return result
 
+
 setup(
     name='django-render-block',
     packages=find_packages(),

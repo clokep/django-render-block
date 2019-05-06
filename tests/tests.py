@@ -1,6 +1,5 @@
 from unittest import skip
 
-from django.template import Context
 from django.test import override_settings, TestCase
 try:
     from django.utils import six
@@ -92,7 +91,7 @@ class TestDjango(TestCase):
             'BACKEND': 'django.template.backends.dummy.TemplateStrings',
             'DIRS': ['tests/templates'],
             'APP_DIRS': True,
-        },]
+        }]
     )
     def test_different_backend(self):
         """
@@ -110,7 +109,7 @@ class TestDjango(TestCase):
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': ['tests/templates'],
         'APP_DIRS': True,
-    },]
+    }]
 )
 class TestJinja2(TestCase):
     """Test the Django templating engine."""
