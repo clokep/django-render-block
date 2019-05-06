@@ -1,3 +1,4 @@
+dist: xenial
 language: python
 # This version of python is only used to run tox.
 python: 3.6
