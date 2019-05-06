@@ -2,6 +2,6 @@
 # for installing the package and running unit tests are defined in setup.py.
 -e .
 
-# Not tested with older versions of Django.
-Django==1.8.13
-Jinja2==2.8
+# Not tested with older versions of Django or Jinja.
+Django>=1.11
+Jinja2>=2.8

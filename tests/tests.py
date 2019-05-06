@@ -2,7 +2,12 @@ from unittest import skip
 
 from django.template import Context
 from django.test import override_settings, TestCase
-from django.utils import six
+try:
+    from django.utils import six
+    PY2 = six.PY2
+except ImportError:
+    # Django > 3 does not include six.
+    PY2 = False
 
 from render_block import render_block_to_string, BlockNotFound, UnsupportedEngine
 
@@ -10,7 +15,7 @@ from render_block import render_block_to_string, BlockNotFound, UnsupportedEngin
 class TestDjango(TestCase):
     """Test the Django templating engine."""
     def assertExceptionMessageEquals(self, exception, expected):
-        result = exception.message if six.PY2 else exception.args[0]
+        result = exception.message if PY2 else exception.args[0]
         self.assertEqual(expected, result)
 
     def test_block(self):
@@ -110,7 +115,7 @@ class TestDjango(TestCase):
 class TestJinja2(TestCase):
     """Test the Django templating engine."""
     def assertExceptionMessageEquals(self, exception, expected):
-        result = exception.message if six.PY2 else exception.args[0]
+        result = exception.message if PY2 else exception.args[0]
         self.assertEqual(expected, result)
 
     def test_block(self):
