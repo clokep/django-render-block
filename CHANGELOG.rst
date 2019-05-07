@@ -6,7 +6,8 @@ Changelog
 next (xxx xx, xxxx)
 ===================
 
-*   Officially support Django 1.11 and Django 2.0.
+*   Supports Django 1.11, Django 2.1, and Django 2.2.
+*   Supports Python 2.7, 3.5, 3.6, and 3.7.
 
 0.5 (September 1, 2016)
 =======================

@@ -1,7 +1,12 @@
 from unittest import skip
 
 from django.test import modify_settings, override_settings, TestCase, RequestFactory
-from django.utils import six
+try:
+    from django.utils import six
+    PY2 = six.PY2
+except ImportError:
+    # Django > 3 does not include six.
+    PY2 = False
 
 from render_block import render_block_to_string, BlockNotFound, UnsupportedEngine
 
@@ -9,7 +14,7 @@ from render_block import render_block_to_string, BlockNotFound, UnsupportedEngin
 class TestDjango(TestCase):
     """Test the Django templating engine."""
     def assertExceptionMessageEquals(self, exception, expected):
-        result = exception.message if six.PY2 else exception.args[0]
+        result = exception.message if PY2 else exception.args[0]
         self.assertEqual(expected, result)
 
     def test_block(self):
@@ -86,7 +91,7 @@ class TestDjango(TestCase):
             'BACKEND': 'django.template.backends.dummy.TemplateStrings',
             'DIRS': ['tests/templates'],
             'APP_DIRS': True,
-        },]
+        }]
     )
     def test_different_backend(self):
         """
@@ -119,12 +124,12 @@ class TestDjango(TestCase):
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': ['tests/templates'],
         'APP_DIRS': True,
-    },]
+    }]
 )
 class TestJinja2(TestCase):
     """Test the Django templating engine."""
     def assertExceptionMessageEquals(self, exception, expected):
-        result = exception.message if six.PY2 else exception.args[0]
+        result = exception.message if PY2 else exception.args[0]
         self.assertEqual(expected, result)
 
     def test_block(self):
