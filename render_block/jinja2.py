@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from render_block.base import BlockNotFound
 
 def jinja2_render_block(template, block_name, context):
@@ -14,4 +16,4 @@ def jinja2_render_block(template, block_name, context):
         raise BlockNotFound("block with name '%s' does not exist" % block_name)
 
     # The result from above is a generator which yields unicode strings.
-    return u''.join([s for s in gen])
+    return ''.join([s for s in gen])

@@ -1,10 +1,12 @@
+from __future__ import absolute_import, unicode_literals
+
 import codecs
 
 from setuptools import find_packages, setup
 
 
 def long_description():
-    result = u''
+    result = ''
 
     for filename in ['README.rst', 'CHANGELOG.rst']:
         with codecs.open(filename, encoding='utf8') as f:

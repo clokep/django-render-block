@@ -20,21 +20,21 @@ class TestDjango(TestCase):
     def test_block(self):
         """Test rendering an individual block."""
         result = render_block_to_string('test1.html', 'block1')
-        self.assertEqual(result, u'block1 from test1')
+        self.assertEqual(result, 'block1 from test1')
 
         # No reason this shouldn't work, but just in case.
         result = render_block_to_string('test1.html', 'block2')
-        self.assertEqual(result, u'block2 from test1')
+        self.assertEqual(result, 'block2 from test1')
 
     def test_override(self):
         """This block is overridden in test2."""
         result = render_block_to_string('test2.html', 'block1')
-        self.assertEqual(result, u'block1 from test2')
+        self.assertEqual(result, 'block1 from test2')
 
     def test_inherit(self):
         """This block is inherited from test1."""
         result = render_block_to_string('test2.html', 'block2')
-        self.assertEqual(result, u'block2 from test1')
+        self.assertEqual(result, 'block2 from test1')
 
     def test_no_block(self):
         """Check if there's no block available an exception is raised."""
@@ -46,24 +46,24 @@ class TestDjango(TestCase):
     def test_include(self):
         """Ensure that an include tag in a block still works."""
         result = render_block_to_string('test3_django.html', 'block1')
-        self.assertEqual(result, u'included template')
+        self.assertEqual(result, 'included template')
 
     def test_super(self):
         """Test that block.super works."""
         result = render_block_to_string('test3_django.html', 'block2')
-        self.assertEqual(result, u'block2 from test3 - block2 from test1')
+        self.assertEqual(result, 'block2 from test3 - block2 from test1')
 
     def test_multi_super(self):
         result = render_block_to_string('test6_django.html', 'block2')
-        self.assertEqual(result, u'block2 from test6 - block2 from test3 - block2 from test1')
+        self.assertEqual(result, 'block2 from test6 - block2 from test3 - block2 from test1')
 
     def test_subblock(self):
         """Test that a block within a block works."""
         result = render_block_to_string('test5.html', 'block1')
-        self.assertEqual(result, u'block3 from test5')
+        self.assertEqual(result, 'block3 from test5')
 
         result = render_block_to_string('test5.html', 'block3')
-        self.assertEqual(result, u'block3 from test5')
+        self.assertEqual(result, 'block3 from test5')
 
     def test_subblock_no_parent(self):
         """
@@ -75,14 +75,14 @@ class TestDjango(TestCase):
         template.
         """
         result = render_block_to_string('test_sub.html', 'base')
-        self.assertEqual(result, u'\n\nbar\n\n')
+        self.assertEqual(result, '\n\nbar\n\n')
 
         result = render_block_to_string('test_sub.html', 'first')
-        self.assertEqual(result, u'\nbar\n')
+        self.assertEqual(result, '\nbar\n')
 
     def test_context(self):
         """Test that a context is properly rendered in a template."""
-        data = u'block2 from test5'
+        data = 'block2 from test5'
         result = render_block_to_string('test5.html', 'block2', {'foo': data})
         self.assertEqual(result, data)
 
@@ -116,7 +116,7 @@ class TestDjango(TestCase):
         request = RequestFactory().get('dummy-url')
         result = render_block_to_string('test_request_context.html', 'block1', {}, request)
 
-        self.assertEqual(result, u'/dummy-url')
+        self.assertEqual(result, '/dummy-url')
 
 
 @override_settings(
@@ -135,22 +135,22 @@ class TestJinja2(TestCase):
     def test_block(self):
         """Test rendering an individual block."""
         result = render_block_to_string('test1.html', 'block1')
-        self.assertEqual(result, u'block1 from test1')
+        self.assertEqual(result, 'block1 from test1')
 
         # No reason this shouldn't work, but just in case.
         result = render_block_to_string('test1.html', 'block2')
-        self.assertEqual(result, u'block2 from test1')
+        self.assertEqual(result, 'block2 from test1')
 
     def test_override(self):
         """This block is overridden in test2."""
         result = render_block_to_string('test2.html', 'block1')
-        self.assertEqual(result, u'block1 from test2')
+        self.assertEqual(result, 'block1 from test2')
 
     @skip('Not currently supported.')
     def test_inherit(self):
         """This block is inherited from test1."""
         result = render_block_to_string('test2.html', 'block2')
-        self.assertEqual(result, u'block2 from test1')
+        self.assertEqual(result, 'block2 from test1')
 
     def test_no_block(self):
         """Check if there's no block available an exception is raised."""
@@ -162,26 +162,26 @@ class TestJinja2(TestCase):
     def test_include(self):
         """Ensure that an include tag in a block still works."""
         result = render_block_to_string('test3_jinja2.html', 'block1')
-        self.assertEqual(result, u'included template')
+        self.assertEqual(result, 'included template')
 
     @skip('Not currently supported.')
     def test_super(self):
         """Test that super() works."""
         result = render_block_to_string('test3_jinja2.html', 'block2')
-        self.assertEqual(result, u'block2 from test3 - block2 from test1')
+        self.assertEqual(result, 'block2 from test3 - block2 from test1')
 
     @skip('Not currently supported.')
     def test_multi_super(self):
         result = render_block_to_string('test6_jinja2.html', 'block2')
-        self.assertEqual(result, u'block2 from test6 - block2 from test3 - block2 from test1')
+        self.assertEqual(result, 'block2 from test6 - block2 from test3 - block2 from test1')
 
     def test_subblock(self):
         """Test that a block within a block works."""
         result = render_block_to_string('test5.html', 'block1')
-        self.assertEqual(result, u'block3 from test5')
+        self.assertEqual(result, 'block3 from test5')
 
         result = render_block_to_string('test5.html', 'block3')
-        self.assertEqual(result, u'block3 from test5')
+        self.assertEqual(result, 'block3 from test5')
 
     @skip('Not currently supported.')
     def test_subblock_no_parent(self):
@@ -194,13 +194,13 @@ class TestJinja2(TestCase):
         template.
         """
         result = render_block_to_string('test_sub.html', 'base')
-        self.assertEqual(result, u'\n\nbar\n\n')
+        self.assertEqual(result, '\n\nbar\n\n')
 
         result = render_block_to_string('test_sub.html', 'first')
-        self.assertEqual(result, u'\nbar\n')
+        self.assertEqual(result, '\nbar\n')
 
     def test_context(self):
         """Test that a context is properly rendered in a template."""
-        data = u'block2 from test5'
+        data = 'block2 from test5'
         result = render_block_to_string('test5.html', 'block2', {'foo': data})
         self.assertEqual(result, data)
