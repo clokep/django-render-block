@@ -13,8 +13,7 @@ from render_block.exceptions import BlockNotFound
 def django_render_block(template, block_name, context, request=None):
     # Create a Django Context.
     if request:
-        context_instance = RequestContext(request)
-        context_instance.push(context)
+        context_instance = RequestContext(request, context)
     else:
         context_instance = Context(context)
 
