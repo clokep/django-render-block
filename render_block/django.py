@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from django.template import Context
+from django.template import Context, RequestContext
 from django.template.base import TextNode
 from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
                                          BlockContext,
@@ -10,9 +10,12 @@ from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
 from render_block.exceptions import BlockNotFound
 
 
-def django_render_block(template, block_name, context):
+def django_render_block(template, block_name, context, request=None):
     # Create a Django Context.
-    context_instance = Context(context)
+    if request:
+        context_instance = RequestContext(request, context)
+    else:
+        context_instance = Context(context)
 
     # Get the underlying django.template.base.Template object.
     template = template.template

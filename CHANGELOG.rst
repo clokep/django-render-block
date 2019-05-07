@@ -8,6 +8,9 @@ next (xxx xx, xxxx)
 
 *   Supports Django 1.11, Django 2.1, and Django 2.2.
 *   Supports Python 2.7, 3.5, 3.6, and 3.7.
+*   ``render_block_to_string`` now optionally accepts a ``request`` parameter.
+    If given a ``RequestContext`` instead of a ``Context`` is used when
+    rendering with the Django templating engine. See #15, thanks to @vintage.
 
 0.5 (September 1, 2016)
 =======================

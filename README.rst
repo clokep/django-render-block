@@ -68,7 +68,7 @@ API Reference
 
 The API is simple and attempts to mirror the built-in ``render_to_string`` API.
 
-``render_block_to_string(template_name, block_name, context=None)``
+``render_block_to_string(template_name, block_name, context=None, request=None)``
 
     ``template_name``
         The name of the template to load and render. If it’s a list of template
@@ -83,6 +83,12 @@ The API is simple and attempts to mirror the built-in ``render_to_string`` API.
 
         ``context`` is now optional. An empty context will be used if it isn’t
         provided.
+
+    ``request``
+        The request object used to render the template.
+
+        ``request`` is optional and works only for Django templates. If
+        provided a ``RequestContext`` will be used instead of a ``Context``.
 
 Exceptions
 ----------

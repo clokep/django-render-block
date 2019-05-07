@@ -1,6 +1,6 @@
 from unittest import skip
 
-from django.test import override_settings, TestCase
+from django.test import modify_settings, override_settings, TestCase, RequestFactory
 try:
     from django.utils import six
     PY2 = six.PY2
@@ -102,6 +102,21 @@ class TestDjango(TestCase):
             render_block_to_string('test1.html', 'noblock')
         self.assertExceptionMessageEquals(exc.exception,
                                           "Can only render blocks from the Django template backend.")
+
+    @modify_settings(
+        INSTALLED_APPS={
+            'prepend': [
+                'django.contrib.auth',
+                'django.contrib.contenttypes',
+            ],
+        },
+    )
+    def test_request_context(self):
+        """Test that a request context data are properly rendered in a template."""
+        request = RequestFactory().get('dummy-url')
+        result = render_block_to_string('test_request_context.html', 'block1', {}, request)
+
+        self.assertEqual(result, u'/dummy-url')
 
 
 @override_settings(

@@ -14,7 +14,7 @@ from render_block.django import django_render_block
 from render_block.exceptions import BlockNotFound, UnsupportedEngine
 
 
-def render_block_to_string(template_name, block_name, context=None):
+def render_block_to_string(template_name, block_name, context=None, request=None):
     """
     Loads the given template_name and renders the given block with the given
     dictionary as context. Returns a string.
@@ -36,7 +36,7 @@ def render_block_to_string(template_name, block_name, context=None):
 
     # The Django backend.
     if isinstance(t, DjangoTemplate):
-        return django_render_block(t, block_name, context)
+        return django_render_block(t, block_name, context, request)
 
     elif isinstance(t, Jinja2Template):
         from render_block.jinja2 import jinja2_render_block
