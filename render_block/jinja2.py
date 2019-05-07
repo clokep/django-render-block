@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from render_block.base import BlockNotFound
+from render_block.exceptions import BlockNotFound
 
 def jinja2_render_block(template, block_name, context):
     # Get the underlying jinja2.environment.Template object.

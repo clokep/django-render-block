@@ -11,7 +11,7 @@ except ImportError:
         pass
 
 from render_block.django import django_render_block
-from render_block.exceptions import BlockNotFound, UnsupportedEngine
+from render_block.exceptions import UnsupportedEngine
 
 
 def render_block_to_string(template_name, block_name, context=None, request=None):
