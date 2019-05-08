@@ -3,8 +3,8 @@
 Changelog
 #########
 
-next (xxx xx, xxxx)
-===================
+0.6 (May 8, 2019)
+=================
 
 *   Supports Django 1.11, Django 2.1, and Django 2.2.
 *   Supports Python 2.7, 3.5, 3.6, and 3.7.

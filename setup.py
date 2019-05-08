@@ -18,7 +18,7 @@ def long_description():
 setup(
     name='django-render-block',
     packages=find_packages(),
-    version='0.5',
+    version='0.6',
     description='Render a particular block from a template to a string.',
     long_description=long_description(),
     author='Patrick Cloke',
@@ -34,12 +34,13 @@ setup(
         'Topic :: Internet',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Framework :: Django',
         'License :: OSI Approved :: ISC License (ISCL)',
     ],
     install_requires=[
-        'django>=1.8.0',
+        'django>=1.11',
     ],
 )
