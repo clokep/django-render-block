@@ -3,6 +3,11 @@
 Changelog
 #########
 
+next (xxx)
+==========
+
+TODO
+
 0.6 (May 8, 2019)
 =================
 
@@ -10,7 +15,9 @@ Changelog
 *   Supports Python 2.7, 3.5, 3.6, and 3.7.
 *   ``render_block_to_string`` now optionally accepts a ``request`` parameter.
     If given a ``RequestContext`` instead of a ``Context`` is used when
-    rendering with the Django templating engine. See #15, thanks to @vintage.
+    rendering with the Django templating engine. See
+    `#15 <https://github.com/clokep/django-render-block/pull/15>`_, thanks to
+    @vintage.
 
 0.5 (September 1, 2016)
 =======================
