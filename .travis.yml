@@ -1,7 +1,17 @@
 dist: xenial
 language: python
 # This version of python is only used to run tox.
-python: 3.6
+python:
+  - 3.8
+  - 3.7
+  - 3.6
+  - 2.7
+env:
+  - TOX_SKIP_ENV=".*djangomaster.*"
+  - TOX_SKIP_ENV=".*django[^m].*"
+matrix:
+  allow_failures:
+    - env: TOX_SKIP_ENV=".*django[^m].*"
 script: tox
 notifications:
   email: false
