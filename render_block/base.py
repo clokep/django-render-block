@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.template import loader
 from django.template.backends.django import Template as DjangoTemplate
 try:
