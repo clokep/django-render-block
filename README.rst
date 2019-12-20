@@ -20,7 +20,7 @@ Features
 Requirements
 ============
 
-Django Render Block supports Django 1.11, 2.1, and 2.2.
+Django Render Block supports Django 1.11, 2.2, and 3.0 on Python 2.7, 3.5, 3.6, 3.7, and 3.8.
 
 Examples
 ========
@@ -131,4 +131,3 @@ This is based on a few sources:
 * A version of the snippets was ported as `Django-Block-Render <https://github.com/uniphil/Django-Block-Render/>`_
 * Additionally inspired by part of `django-templated-email <https://github.com/BradWhittington/django-templated-email/blob/master/templated_email/utils.py>`_
 * Also based on a `StackOverflow answer 2687173 <http://stackoverflow.com/questions/2687173/django-how-can-i-get-a-block-from-a-template>`_
-
