@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.template import Context, RequestContext
 from django.template.base import TextNode
 from django.template.loader_tags import (BLOCK_CONTEXT_KEY,

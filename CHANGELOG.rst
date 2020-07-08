@@ -8,6 +8,7 @@ next (xxx)
 
 *   Drop support for Django 2.1.
 *   Officially supports Django 3.0.
+*   Drop support for Python 2.7.
 *   Officially supports Python 3.8.
 
 0.6 (May 8, 2019)

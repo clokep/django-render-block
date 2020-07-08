@@ -1,5 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
 from render_block.exceptions import BlockNotFound
 
 def jinja2_render_block(template, block_name, context):
