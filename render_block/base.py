@@ -5,7 +5,7 @@ try:
 except ImportError:
     # Most likely Jinja2 isn't installed, in that case just create a class since
     # we always want it to be false anyway.
-    class Jinja2Template(object):
+    class Jinja2Template:
         pass
 
 from render_block.django import django_render_block
