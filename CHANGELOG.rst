@@ -7,7 +7,7 @@ next (xxx)
 ==========
 
 *   Drop support for Django 2.1.
-*   Officially supports Django 3.0.
+*   Officially supports Django 3.0, 3.1.
 *   Drop support for Python 2.7.
 *   Officially supports Python 3.8.
 
