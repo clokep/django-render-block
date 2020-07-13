@@ -2,6 +2,7 @@
 *.py[co]
 *.exe
 *.msi
+.python-version
 
 # Packages
 *.egg

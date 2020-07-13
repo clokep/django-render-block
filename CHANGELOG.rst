@@ -3,13 +3,13 @@
 Changelog
 #########
 
-next (xxx)
-==========
+0.7 (July 13, 2020)
+===================
 
 *   Drop support for Django < 2.2.
-*   Officially supports Django 3.0, 3.1.
+*   Officially support Django 3.0, 3.1.
 *   Drop support for Python 2.7.
-*   Officially supports Python 3.8.
+*   Officially support Python 3.8.
 
 0.6 (May 8, 2019)
 =================
