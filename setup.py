@@ -8,7 +8,7 @@ def long_description():
 
     for filename in ['README.rst', 'CHANGELOG.rst']:
         with codecs.open(filename, encoding='utf8') as f:
-            result += f.read()
+            result += f.read() + '\n'
 
     return result
 
@@ -19,6 +19,7 @@ setup(
     version='0.7',
     description='Render a particular block from a template to a string.',
     long_description=long_description(),
+    long_description_content_type='text/x-rst',
     author='Patrick Cloke',
     author_email='clokep@patrick.cloke.us',
     url='https://github.com/clokep/django-render-block',
