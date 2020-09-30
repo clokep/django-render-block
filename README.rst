@@ -88,7 +88,7 @@ The API is simple and attempts to mirror the built-in ``render_to_string`` API.
         The request object used to render the template.
 
         ``request`` is optional and works only for Django templates. If
-        provided a ``RequestContext`` will be used instead of a ``Context``.
+        provided, a ``RequestContext`` will be used instead of a ``Context``.
 
 Exceptions
 ----------
