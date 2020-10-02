@@ -81,7 +81,7 @@ class TestDjango(TestCase):
         self.assertEqual(result, data)
 
     def test_context_autoescape_off(self):
-        """Test that the use can disable autoescape by providing a Context instance."""
+        """Test that the user can disable autoescape by providing a Context instance."""
         data = "&'"
         result = render_block_to_string('test5.html', 'block2', Context({'foo': data}, autoescape=False))
         self.assertEqual(result, data)
