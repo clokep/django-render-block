@@ -9,8 +9,10 @@ from render_block.exceptions import BlockNotFound
 
 
 def django_render_block(template, block_name, context, request=None):
-    # Create a Django Context.
-    if request:
+    # Create a Django Context if needed
+    if isinstance(context, Context):
+        context_instance = context
+    elif request:
         context_instance = RequestContext(request, context)
     else:
         context_instance = Context(context)

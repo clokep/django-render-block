@@ -1,5 +1,6 @@
 from unittest import skip
 
+from django.template import Context
 from django.test import modify_settings, override_settings, TestCase, RequestFactory
 
 from render_block import render_block_to_string, BlockNotFound, UnsupportedEngine
@@ -77,6 +78,12 @@ class TestDjango(TestCase):
         """Test that a context is properly rendered in a template."""
         data = 'block2 from test5'
         result = render_block_to_string('test5.html', 'block2', {'foo': data})
+        self.assertEqual(result, data)
+
+    def test_context_autoescape_off(self):
+        """Test that the user can disable autoescape by providing a Context instance."""
+        data = "&'"
+        result = render_block_to_string('test5.html', 'block2', Context({'foo': data}, autoescape=False))
         self.assertEqual(result, data)
 
     @override_settings(

@@ -3,6 +3,12 @@
 Changelog
 #########
 
+next (xxx xx, xxxx)
+===================
+
+*   ``render_block_to_string`` now forwards the ``Context`` passed as ``context`` parameter.
+    (`#21 <https://github.com/clokep/django-render-block/pull/21>`_, by @bblanchon)
+
 0.7 (July 13, 2020)
 ===================
 
@@ -17,7 +23,7 @@ Changelog
 *   Supports Django 1.11, Django 2.1, and Django 2.2.
 *   Supports Python 2.7, 3.5, 3.6, and 3.7.
 *   ``render_block_to_string`` now optionally accepts a ``request`` parameter.
-    If given a ``RequestContext`` instead of a ``Context`` is used when
+    If given, a ``RequestContext`` instead of a ``Context`` is used when
     rendering with the Django templating engine. See
     `#15 <https://github.com/clokep/django-render-block/pull/15>`_, thanks to
     @vintage.
