@@ -8,6 +8,7 @@ next (xxx xx, xxxx)
 
 *   ``render_block_to_string`` now forwards the ``Context`` passed as ``context`` parameter.
     (`#21 <https://github.com/clokep/django-render-block/pull/21>`_, by @bblanchon)
+*   Drop support for Python 3.5, officially support Python 3.9.
 
 0.7 (July 13, 2020)
 ===================
