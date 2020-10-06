@@ -3,8 +3,8 @@
 Changelog
 #########
 
-next (xxx xx, xxxx)
-===================
+0.8 (October 6, 2020)
+=====================
 
 *   ``render_block_to_string`` now forwards the ``Context`` passed as ``context`` parameter.
     (`#21 <https://github.com/clokep/django-render-block/pull/21>`_, by @bblanchon)
