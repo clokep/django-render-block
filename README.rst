@@ -79,16 +79,16 @@ The API is simple and attempts to mirror the built-in ``render_to_string`` API.
         The name of the block to render from the above template.
 
     ``context``
-        A ``dict`` or a ``Context`` to be used as the template’s context for rendering.
+        A ``dict`` to be used as the template’s context for rendering. A ``Context``
+        object can be provided for Django templates.
 
-        ``context`` is now optional. An empty context will be used if it isn’t
-        provided.
+        ``context`` is optional. If not provided, an empty context will be used.
 
     ``request``
         The request object used to render the template.
 
-        ``request`` is optional and works only for Django templates. If
-        provided, a ``RequestContext`` will be used instead of a ``Context``.
+        ``request`` is optional and works only for Django templates. If both context and request
+        are provided, a ``RequestContext`` will be used instead of a ``Context``.
 
 Exceptions
 ----------
