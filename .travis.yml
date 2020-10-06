@@ -1,6 +1,5 @@
-dist: xenial
+dist: bionic
 language: python
-# This version of python is only used to run tox.
 python:
   - 3.8
   - 3.7
