@@ -1,3 +1,5 @@
+from copy import copy
+
 from django.template import Context, RequestContext
 from django.template.base import TextNode
 from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
@@ -11,7 +13,7 @@ from render_block.exceptions import BlockNotFound
 def django_render_block(template, block_name, context, request=None):
     # Create a Django Context if needed
     if isinstance(context, Context):
-        context_instance = context
+        context_instance = copy(context)
     elif request:
         context_instance = RequestContext(request, context)
     else:
