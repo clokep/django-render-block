@@ -51,6 +51,13 @@ class TestDjango(TestCase):
         result = render_block_to_string('test6_django.html', 'block2')
         self.assertEqual(result, 'block2 from test6 - block2 from test3 - block2 from test1')
 
+    def test_super_with_same_context_on_multiple_executions(self):
+        """Test that block.super works when fed the same context object twice."""
+        context = Context()
+        result_one = render_block_to_string('test3_django.html', 'block2', context=context)
+        result_two = render_block_to_string('test3_django.html', 'block2', context=context)
+        self.assertEqual(result_one, result_two, 'block2 from test3 - block2 from test1')
+
     def test_subblock(self):
         """Test that a block within a block works."""
         result = render_block_to_string('test5.html', 'block1')

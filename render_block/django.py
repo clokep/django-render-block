@@ -1,4 +1,7 @@
+from copy import copy
+
 from django.template import Context, RequestContext
+from django.template.context import RenderContext
 from django.template.base import TextNode
 from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
                                          BlockContext,
@@ -11,7 +14,13 @@ from render_block.exceptions import BlockNotFound
 def django_render_block(template, block_name, context, request=None):
     # Create a Django Context if needed
     if isinstance(context, Context):
-        context_instance = context
+        # Make a copy of the context and reset the rendering state.
+        # Trying to re-use a RenderContext in multiple renders can
+        # lead to TemplateNotFound errors, as Django will skip past
+        # any template files it thinks it has already rendered in a
+        # template's inheritance stack.
+        context_instance = copy(context)
+        context_instance.render_context = RenderContext()
     elif request:
         context_instance = RequestContext(request, context)
     else:
