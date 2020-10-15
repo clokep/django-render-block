@@ -16,7 +16,7 @@ def long_description():
 setup(
     name='django-render-block',
     packages=find_packages(),
-    version='0.8.1',
+    version='0.9dev',
     description='Render a particular block from a template to a string.',
     long_description=long_description(),
     long_description_content_type='text/x-rst',
