@@ -6,35 +6,39 @@ Changelog
 0.8.1 (October 15, 2020)
 ========================
 
-*   Fixes a regression in v0.8 where a ``Context`` could not be re-used. See
-    `#25 <https://github.com/clokep/django-render-block/pull/25>`_, contributed
-    by @evanbrumley.
+*   Fixes a regression in v0.8 where a ``Context`` could not be re-used. Contributed
+    by `@evanbrumley <https://github.com/evanbrumley>`_. (`#25 <https://github.com/clokep/django-render-block/pull/25>`_)
 
 0.8 (October 6, 2020)
 =====================
 
 *   ``render_block_to_string`` now forwards the ``Context`` passed as ``context`` parameter.
-    (`#21 <https://github.com/clokep/django-render-block/pull/21>`_, by @bblanchon)
-*   Drop support for Python 3.5, officially support Python 3.9.
+    Contributed by `@bblanchon <https://github.com/bblanchon>`_. (`#21 <https://github.com/clokep/django-render-block/pull/21>`_)
+*   Drop support for Python 3.5, officially support Python 3.9. (`#22 <https://github.com/clokep/django-render-block/pull/22>`_)
 
 0.7 (July 13, 2020)
 ===================
 
-*   Drop support for Django < 2.2.
-*   Officially support Django 3.0, 3.1.
-*   Drop support for Python 2.7.
-*   Officially support Python 3.8.
+*   Drop support for Django < 2.2. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
+*   Officially support Django 3.0, 3.1. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_,
+    `#20 <https://github.com/clokep/django-render-block/pull/20>`_)
+*   Drop support for Python 2.7. (`#19 <https://github.com/clokep/django-render-block/pull/19>`_)
+*   Officially support Python 3.8. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
 
 0.6 (May 8, 2019)
 =================
 
-*   Supports Django 1.11, Django 2.1, and Django 2.2.
-*   Supports Python 2.7, 3.5, 3.6, and 3.7.
+*   Supports Django 1.11, Django 2.1, and Django 2.2. (`#9 <https://github.com/clokep/django-render-block/pull/9>`_,
+    `#11 <https://github.com/clokep/django-render-block/pull/11>`_,
+    `#17 <https://github.com/clokep/django-render-block/pull/17>`_)
+*   Supports Python 2.7, 3.5, 3.6, and 3.7. (`#9 <https://github.com/clokep/django-render-block/pull/9>`_,
+    `#17 <https://github.com/clokep/django-render-block/pull/17>`_)
 *   ``render_block_to_string`` now optionally accepts a ``request`` parameter.
     If given, a ``RequestContext`` instead of a ``Context`` is used when
-    rendering with the Django templating engine. See
-    `#15 <https://github.com/clokep/django-render-block/pull/15>`_, thanks to
-    @vintage.
+    rendering with the Django templating engine. Contributed by
+    `@vintage <https://github.com/vintage>`_. (`#15 <https://github.com/clokep/django-render-block/pull/15>`_)
+*   Fix rendering of README on PyPI. Contributed by `@mixxorz <https://github.com/mixxorz>`_.
+    (`#10 <https://github.com/clokep/django-render-block/pull/10>`_)
 
 0.5 (September 1, 2016)
 =======================
@@ -73,6 +77,7 @@ Changelog
 
 *   Updated per
     `comment 3466 on Django Snippet 942 <https://djangosnippets.org/snippets/942/#c3466>`_
+    by `eugenyboger <https://djangosnippets.org/users/eugenyboger/>`_
     to fix an issue with nested extends. The specific bug was not reproducible,
     but the additional code shouldn't hurt.
 
@@ -81,14 +86,16 @@ Changelog
 
 *   Updated per
     `comment 3237 on Django Snippet 942 <https://djangosnippets.org/snippets/942/#c3237>`_
+    by `chadselph <https://djangosnippets.org/users/chadselph/>`_
     to remove a pointless render. The specific bug was not reproducible, but the
-    code is extraneous.
+    removed code was extraneous.
 
 0.2 (August 4, 2008)
 ====================
 
 *   Updated version from
-    `Django Snippet 942 <https://djangosnippets.org/snippets/942/>`_ by zbyte64.
+    `Django Snippet 942 <https://djangosnippets.org/snippets/942/>`_ by
+    `zbyte64 <https://djangosnippets.org/users/zbyte64/>`_.
 *   Improves include:
 
     1.  Simpler/better handling of "extends" block tag
@@ -102,5 +109,6 @@ Changelog
 ==================
 
 *   Initial version from
-    `Django Snippet 769 <https://djangosnippets.org/snippets/769/>`_ by sciyoshi.
+    `Django Snippet 769 <https://djangosnippets.org/snippets/769/>`_ by
+    `sciyoshi <https://djangosnippets.org/users/sciyoshi/>`_.
 *   Supports Django 0.96.
