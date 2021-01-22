@@ -12,6 +12,8 @@ from django.template.loader_tags import (
 
 from render_block.exceptions import BlockNotFound
 
+_NODES_CACHE = {}
+
 
 def django_render_block(template, block_name, context, request=None):
     # Create a Django Context if needed
@@ -30,24 +32,36 @@ def django_render_block(template, block_name, context, request=None):
 
     # Get the underlying django.template.base.Template object.
     template = template.template
+    cache_key = _make_node_cache_key(template, block_name)
 
     # Bind the template to the context.
     with context_instance.bind_template(template):
-        # Before trying to render the template, we need to traverse the tree of
-        # parent templates and find all blocks in them.
-        parent_template = _build_block_context(template, context_instance)
-
         try:
-            return _render_template_block(template, block_name, context_instance)
-        except BlockNotFound:
-            # The block wasn't found in the current template.
+            node, render_context = _NODES_CACHE[cache_key]
+        except KeyError:
+            # Before trying to render the template, we need to traverse the tree of
+            # parent templates and find all blocks in them.
+            parent_template = _build_block_context(template, context_instance)
 
-            # If there's no parent template (i.e. no ExtendsNode), re-raise.
-            if not parent_template:
-                raise
+            try:
+                node, render_context = _find_template_block(template, block_name, context_instance)
+            except BlockNotFound:
+                # The block wasn't found in the current template.
 
-            # Check the parent template for this block.
-            return _render_template_block(parent_template, block_name, context_instance)
+                # If there's no parent template (i.e. no ExtendsNode), re-raise.
+                if not parent_template:
+                    raise
+
+                # Check the parent template for this block.
+                node, render_context = _find_template_block(parent_template, block_name, context_instance)
+            _NODES_CACHE[cache_key] = node, render_context
+
+        context_instance.render_context = render_context
+        return node.render(context_instance)
+
+
+def _make_node_cache_key(template, block_name):
+    return f'{template.name}@{block_name}'
 
 
 def _build_block_context(template, context):
@@ -82,12 +96,12 @@ def _build_block_context(template, context):
             break
 
 
-def _render_template_block(template, block_name, context):
-    """Renders a single block from a template."""
-    return _render_template_block_nodelist(template.nodelist, block_name, context)
+def _find_template_block(template, block_name, context):
+    """Finds a single block from a template."""
+    return _find_template_block_nodelist(template.nodelist, block_name, context)
 
 
-def _render_template_block_nodelist(nodelist, block_name, context):
+def _find_template_block_nodelist(nodelist, block_name, context):
     """Recursively iterate over a node to find the wanted block."""
 
     # Attempt to find the wanted block in the current template.
@@ -99,7 +113,7 @@ def _render_template_block_nodelist(nodelist, block_name, context):
 
             # If the name matches, you're all set and we found the block!
             if node.name == block_name:
-                return node.render(context)
+                return node, context.render_context
 
         # If a node has children, recurse into them. Based on
         # django.template.base.Node.get_nodes_by_type.
@@ -111,9 +125,7 @@ def _render_template_block_nodelist(nodelist, block_name, context):
 
             # Try to find the block recursively.
             try:
-                return _render_template_block_nodelist(
-                    new_nodelist, block_name, context
-                )
+                return _find_template_block_nodelist(new_nodelist, block_name, context)
             except BlockNotFound:
                 continue
 
