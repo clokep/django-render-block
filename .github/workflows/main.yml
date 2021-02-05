@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: "Python ${{ matrix.python-version }}"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.6", "3.7", "3.8"]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "${{ matrix.python-version }}"
+
+      - name: "Install dependencies"
+        run: |
+          set -xe
+          python -VV
+          python -m site
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade tox
+
+      - name: "Run tox targets for ${{ matrix.python-version }}"
+        env:
+          TOX_SKIP_ENV: ".*djangomaster.*"
+        run: "python -m tox"
+
+      - name: "Run tox targets for ${{ matrix.python-version }} for django master"
+        env:
+          TOX_SKIP_ENV: ".*django[^m].*"
+        run: "python -m tox"
+        continue-on-error: true
