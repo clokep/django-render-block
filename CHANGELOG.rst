@@ -21,16 +21,16 @@ next
 
 * ``render_block_to_string`` now forwards the ``Context`` passed as ``context`` parameter.
   Contributed by `@bblanchon <https://github.com/bblanchon>`_. (`#21 <https://github.com/clokep/django-render-block/pull/21>`_)
-* Drop support for Python 3.5, officially support Python 3.9. (`#22 <https://github.com/clokep/django-render-block/pull/22>`_)
+* Drop support for Python 3.5, support Python 3.9. (`#22 <https://github.com/clokep/django-render-block/pull/22>`_)
 
 0.7 (July 13, 2020)
 ===================
 
 * Drop support for Django < 2.2. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
-* Officially support Django 3.0, 3.1. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_,
+* Support Django 3.0, 3.1. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_,
   `#20 <https://github.com/clokep/django-render-block/pull/20>`_)
 * Drop support for Python 2.7. (`#19 <https://github.com/clokep/django-render-block/pull/19>`_)
-* Officially support Python 3.8. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
+* Support Python 3.8. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
 
 0.6 (May 8, 2019)
 =================
