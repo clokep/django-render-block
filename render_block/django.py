@@ -1,5 +1,6 @@
 from copy import copy
 
+from django.conf import settings
 from django.template import Context, RequestContext
 from django.template.base import TextNode
 from django.template.context import RenderContext
@@ -54,7 +55,9 @@ def django_render_block(template, block_name, context, request=None):
 
                 # Check the parent template for this block.
                 node, render_context = _find_template_block(parent_template, block_name, context_instance)
-            _NODES_CACHE[cache_key] = node, render_context
+
+            if not settings.DEBUG:
+                _NODES_CACHE[cache_key] = node, render_context
 
         context_instance.render_context = render_context
         return node.render(context_instance)
