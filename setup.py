@@ -45,5 +45,5 @@ setup(
     install_requires=[
         'django>=2.2',
     ],
-    python_requires=">=3.5",
+    python_requires=">=3.6",
 )
