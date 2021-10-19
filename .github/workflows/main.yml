@@ -34,10 +34,10 @@ jobs:
 
       - name: "Run tox targets for ${{ matrix.python-version }}"
         env:
-          TOX_SKIP_ENV: ".*djangomaster.*"
+          TOX_SKIP_ENV: ".*djangomain.*"
         run: "python -m tox"
 
-      - name: "Run tox targets for ${{ matrix.python-version }} for django master"
+      - name: "Run tox targets for ${{ matrix.python-version }} for django main"
         env:
           TOX_SKIP_ENV: ".*django[^m].*"
         run: "python -m tox"
