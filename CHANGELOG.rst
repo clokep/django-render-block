@@ -6,7 +6,9 @@ Changelog
 next
 ====
 
-* Support Django 3.2 (`#27 <https://github.com/clokep/django-render-block/pull/27>`_)
+* Drop support for Django 3.0. (`#31 <https://github.com/clokep/django-render-block/pull/31>`_)
+* Support Django 3.2 and 4.0. (`#27 <https://github.com/clokep/django-render-block/pull/27>`_,
+  `#31 <https://github.com/clokep/django-render-block/pull/31>`_)
 * Switch continuous integration to GitHub Actions. (`#26 <https://github.com/clokep/django-render-block/pull/26>`_,
   `#28 <https://github.com/clokep/django-render-block/pull/28>`_)
 
@@ -27,7 +29,7 @@ next
 ===================
 
 * Drop support for Django < 2.2. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
-* Support Django 3.0, 3.1. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_,
+* Support Django 3.0 and 3.1. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_,
   `#20 <https://github.com/clokep/django-render-block/pull/20>`_)
 * Drop support for Python 2.7. (`#19 <https://github.com/clokep/django-render-block/pull/19>`_)
 * Support Python 3.8. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
@@ -35,10 +37,10 @@ next
 0.6 (May 8, 2019)
 =================
 
-* Supports Django 1.11, Django 2.1, and Django 2.2. (`#9 <https://github.com/clokep/django-render-block/pull/9>`_,
+* Support Django 1.11, 2.1, and 2.2. (`#9 <https://github.com/clokep/django-render-block/pull/9>`_,
   `#11 <https://github.com/clokep/django-render-block/pull/11>`_,
   `#17 <https://github.com/clokep/django-render-block/pull/17>`_)
-* Supports Python 2.7, 3.5, 3.6, and 3.7. (`#9 <https://github.com/clokep/django-render-block/pull/9>`_,
+* Support Python 2.7, 3.5, 3.6, and 3.7. (`#9 <https://github.com/clokep/django-render-block/pull/9>`_,
   `#17 <https://github.com/clokep/django-render-block/pull/17>`_)
 * ``render_block_to_string`` now optionally accepts a ``request`` parameter.
   If given, a ``RequestContext`` instead of a ``Context`` is used when
@@ -72,7 +74,7 @@ next
 ==================
 
 * Largely rewritten.
-* Updated to support modern Django (1.8, 1.9):
+* Support Django 1.8 and 1.9:
 
   * Guards against different template backends.
   * Uses internal APIs for each node.
@@ -117,4 +119,4 @@ next
 * Initial version from
   `Django Snippet 769 <https://djangosnippets.org/snippets/769/>`_ by
   `sciyoshi <https://djangosnippets.org/users/sciyoshi/>`_.
-* Supports Django 0.96.
+* Support Django 0.96.
