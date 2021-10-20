@@ -11,6 +11,8 @@ next
   `#31 <https://github.com/clokep/django-render-block/pull/31>`_)
 * Switch continuous integration to GitHub Actions. (`#26 <https://github.com/clokep/django-render-block/pull/26>`_,
   `#28 <https://github.com/clokep/django-render-block/pull/28>`_)
+* Changed packaging to use setuptools declarative config in `setup.cfg`.
+  (`#32 <https://github.com/clokep/django-render-block/pull/32>`_)
 
 0.8.1 (October 15, 2020)
 ========================
