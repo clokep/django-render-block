@@ -6,6 +6,8 @@ Changelog
 next
 ====
 
+* Support Python 3.10. (`#33 <https://github.com/clokep/django-render-block/pull/33>`_)
+
 0.9 (December 14, 2021)
 =======================
 
