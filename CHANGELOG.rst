@@ -3,15 +3,15 @@
 Changelog
 #########
 
-next
-====
+0.9 (December 14, 2021)
+=======================
 
 * Drop support for Django 3.0. (`#31 <https://github.com/clokep/django-render-block/pull/31>`_)
 * Support Django 3.2 and 4.0. (`#27 <https://github.com/clokep/django-render-block/pull/27>`_,
   `#31 <https://github.com/clokep/django-render-block/pull/31>`_)
 * Switch continuous integration to GitHub Actions. (`#26 <https://github.com/clokep/django-render-block/pull/26>`_,
   `#28 <https://github.com/clokep/django-render-block/pull/28>`_)
-* Changed packaging to use setuptools declarative config in `setup.cfg`.
+* Changed packaging to use setuptools declarative config in ``setup.cfg``.
   (`#32 <https://github.com/clokep/django-render-block/pull/32>`_)
 
 0.8.1 (October 15, 2020)
