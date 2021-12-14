@@ -1,8 +1,8 @@
 Django Render Block
 ###################
 
-.. image:: https://api.travis-ci.com/clokep/django-render-block.svg?branch=main
-    :target: https://travis-ci.com/clokep/django-render-block
+.. image:: https://github.com/clokep/django-render-block/actions/workflows/main.yml/badge.svg
+    :target: https://github.com/clokep/django-render-block/actions/workflows/main.yml
 
 Render the content of a specific block tag from a Django template. Works for
 arbitrary template inheritance, even if a block is defined in the child template
