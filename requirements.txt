@@ -1,7 +1,0 @@
-# Install the current directory as an editable package. Denpendencies required
-# for installing the package and running unit tests are defined in setup.py.
--e .
-
-# Not tested with older versions of Django or Jinja.
-Django>=1.11
-Jinja2>=2.8
