@@ -3,10 +3,12 @@
 Changelog
 #########
 
-next
-====
+0.9.1 (December 15, 2021)
+=========================
 
 * Support Python 3.10. (`#33 <https://github.com/clokep/django-render-block/pull/33>`_)
+* Fixed a packaging issue where the generated wheels were empty. Contributed
+  by `@cordery <https://github.com/cordery>`_. (`#35 <https://github.com/clokep/django-render-block/pull/35>`_)
 
 0.9 (December 14, 2021)
 =======================
