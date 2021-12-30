@@ -3,6 +3,11 @@
 Changelog
 #########
 
+next
+====
+
+* Drop support for Python 3.6.  (`#36 <https://github.com/clokep/django-render-block/pull/36>`_)
+
 0.9.1 (December 15, 2021)
 =========================
 
