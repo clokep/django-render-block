@@ -6,11 +6,17 @@ Changelog
 next
 ====
 
+Maintenance
+-----------
+
 * Drop support for Python 3.6. (`#36 <https://github.com/clokep/django-render-block/pull/36>`_)
 * Improve package metadata. (`#37 <https://github.com/clokep/django-render-block/pull/37>`_)
 
 0.9.1 (December 15, 2021)
 =========================
+
+Maintenance
+-----------
 
 * Support Python 3.10. (`#33 <https://github.com/clokep/django-render-block/pull/33>`_)
 * Fixed a packaging issue where the generated wheels were empty. Contributed
@@ -18,6 +24,9 @@ next
 
 0.9 (December 14, 2021)
 =======================
+
+Maintenance
+-----------
 
 * Drop support for Django 3.0. (`#31 <https://github.com/clokep/django-render-block/pull/31>`_)
 * Support Django 3.2 and 4.0. (`#27 <https://github.com/clokep/django-render-block/pull/27>`_,
@@ -30,18 +39,31 @@ next
 0.8.1 (October 15, 2020)
 ========================
 
+Bugfixes
+--------
+
 * Fixes a regression in v0.8 where a ``Context`` could not be re-used. Contributed
   by `@evanbrumley <https://github.com/evanbrumley>`_. (`#25 <https://github.com/clokep/django-render-block/pull/25>`_)
 
 0.8 (October 6, 2020)
 =====================
 
+Bugfixes
+--------
+
 * ``render_block_to_string`` now forwards the ``Context`` passed as ``context`` parameter.
   Contributed by `@bblanchon <https://github.com/bblanchon>`_. (`#21 <https://github.com/clokep/django-render-block/pull/21>`_)
+
+Maintenance
+-----------
+
 * Drop support for Python 3.5, support Python 3.9. (`#22 <https://github.com/clokep/django-render-block/pull/22>`_)
 
 0.7 (July 13, 2020)
 ===================
+
+Maintenance
+-----------
 
 * Drop support for Django < 2.2. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
 * Support Django 3.0 and 3.1. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_,
@@ -52,20 +74,30 @@ next
 0.6 (May 8, 2019)
 =================
 
+Improvements
+------------
+
+* ``render_block_to_string`` now optionally accepts a ``request`` parameter.
+  If given, a ``RequestContext`` instead of a ``Context`` is used when
+  rendering with the Django templating engine. Contributed by
+  `@vintage <https://github.com/vintage>`_. (`#15 <https://github.com/clokep/django-render-block/pull/15>`_)
+
+Maintenance
+-----------
+
 * Support Django 1.11, 2.1, and 2.2. (`#9 <https://github.com/clokep/django-render-block/pull/9>`_,
   `#11 <https://github.com/clokep/django-render-block/pull/11>`_,
   `#17 <https://github.com/clokep/django-render-block/pull/17>`_)
 * Support Python 2.7, 3.5, 3.6, and 3.7. (`#9 <https://github.com/clokep/django-render-block/pull/9>`_,
   `#17 <https://github.com/clokep/django-render-block/pull/17>`_)
-* ``render_block_to_string`` now optionally accepts a ``request`` parameter.
-  If given, a ``RequestContext`` instead of a ``Context`` is used when
-  rendering with the Django templating engine. Contributed by
-  `@vintage <https://github.com/vintage>`_. (`#15 <https://github.com/clokep/django-render-block/pull/15>`_)
 * Fix rendering of README on PyPI. Contributed by `@mixxorz <https://github.com/mixxorz>`_.
   (`#10 <https://github.com/clokep/django-render-block/pull/10>`_)
 
 0.5 (September 1, 2016)
 =======================
+
+Bugfixes
+--------
 
 * Fixes a major issue with inheriting templates and rendering a block found in
   the parent template, but overwriting part of it in the child template.
@@ -74,13 +106,23 @@ next
 0.4 (August 4, 2016)
 ====================
 
+Improvements
+------------
+
 * Initial support for using the `Jinja2 <http://jinja.pocoo.org/>`_ templating
   engine. See README for caveats. (`#3 <https://github.com/clokep/django-render-block/pull/3>`_)
+
+Maintenance
+-----------
+
 * Support Django 1.10. (`#5 <https://github.com/clokep/django-render-block/pull/5>`_)
 * Support Python 3. (`#6 <https://github.com/clokep/django-render-block/pull/6>`_)
 
 0.3.1 (June 1, 2016)
 ====================
+
+Maintenance
+------------
 
 * Refactoring to make more generic (for potentially supporting multiple
   templating engines).

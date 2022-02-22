@@ -1,6 +1,9 @@
 Django Render Block
 ###################
 
+.. image:: https://img.shields.io/pypi/v/django-render-block.svg
+    :target: https://pypi.org/project/django-render-block/
+
 .. image:: https://github.com/clokep/django-render-block/actions/workflows/main.yml/badge.svg
     :target: https://github.com/clokep/django-render-block/actions/workflows/main.yml
 
