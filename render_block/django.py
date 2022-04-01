@@ -3,10 +3,12 @@ from copy import copy
 from django.template import Context, RequestContext
 from django.template.context import RenderContext
 from django.template.base import TextNode
-from django.template.loader_tags import (BLOCK_CONTEXT_KEY,
-                                         BlockContext,
-                                         BlockNode,
-                                         ExtendsNode)
+from django.template.loader_tags import (
+    BLOCK_CONTEXT_KEY,
+    BlockContext,
+    BlockNode,
+    ExtendsNode,
+)
 
 from render_block.exceptions import BlockNotFound
 
@@ -45,8 +47,7 @@ def django_render_block(template, block_name, context, request=None):
                 raise
 
             # Check the parent template for this block.
-            return _render_template_block(
-                parent_template, block_name, context_instance)
+            return _render_template_block(parent_template, block_name, context_instance)
 
 
 def _build_block_context(template, context):
@@ -67,7 +68,11 @@ def _build_block_context(template, context):
             # similar logic to ExtendsNode.render(), where we're adding the
             # parent's blocks to the context so a child can find them.)
             block_context.add_blocks(
-                {n.name: n for n in compiled_parent.nodelist.get_nodes_by_type(BlockNode)})
+                {
+                    n.name: n
+                    for n in compiled_parent.nodelist.get_nodes_by_type(BlockNode)
+                }
+            )
 
             _build_block_context(compiled_parent, context)
             return compiled_parent
@@ -106,7 +111,9 @@ def _render_template_block_nodelist(nodelist, block_name, context):
 
             # Try to find the block recursively.
             try:
-                return _render_template_block_nodelist(new_nodelist, block_name, context)
+                return _render_template_block_nodelist(
+                    new_nodelist, block_name, context
+                )
             except BlockNotFound:
                 continue
 
