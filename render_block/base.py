@@ -1,5 +1,6 @@
 from django.template import loader
 from django.template.backends.django import Template as DjangoTemplate
+
 try:
     from django.template.backends.jinja2 import Template as Jinja2Template
 except ImportError:
@@ -7,6 +8,7 @@ except ImportError:
     # we always want it to be false anyway.
     class Jinja2Template:
         pass
+
 
 from render_block.django import django_render_block
 from render_block.exceptions import UnsupportedEngine
@@ -38,8 +40,10 @@ def render_block_to_string(template_name, block_name, context=None, request=None
 
     elif isinstance(t, Jinja2Template):
         from render_block.jinja2 import jinja2_render_block
+
         return jinja2_render_block(t, block_name, context)
 
     else:
         raise UnsupportedEngine(
-            'Can only render blocks from the Django template backend.')
+            "Can only render blocks from the Django template backend."
+        )

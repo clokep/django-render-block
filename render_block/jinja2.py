@@ -1,5 +1,6 @@
 from render_block.exceptions import BlockNotFound
 
+
 def jinja2_render_block(template, block_name, context):
     # Get the underlying jinja2.environment.Template object.
     template = template.template
@@ -14,4 +15,4 @@ def jinja2_render_block(template, block_name, context):
         raise BlockNotFound("block with name '%s' does not exist" % block_name)
 
     # The result from above is a generator which yields unicode strings.
-    return ''.join([s for s in gen])
+    return "".join([s for s in gen])
