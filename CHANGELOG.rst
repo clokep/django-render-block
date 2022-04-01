@@ -11,6 +11,8 @@ Maintenance
 
 * Drop support for Python 3.6. (`#36 <https://github.com/clokep/django-render-block/pull/36>`_)
 * Improve package metadata. (`#37 <https://github.com/clokep/django-render-block/pull/37>`_)
+* Run `black <https://black.readthedocs.io/>`_, `isort <https://pycqa.github.io/isort/>`_,
+  and `flake8 <https://flake8.pycqa.org>`_. (`#38 <https://github.com/clokep/django-render-block/pull/38>`_)
 
 0.9.1 (December 15, 2021)
 =========================
