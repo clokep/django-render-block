@@ -1,9 +1,9 @@
 from unittest import skip
 
 from django.template import Context
-from django.test import modify_settings, override_settings, TestCase, RequestFactory
+from django.test import RequestFactory, TestCase, modify_settings, override_settings
 
-from render_block import render_block_to_string, BlockNotFound, UnsupportedEngine
+from render_block import BlockNotFound, UnsupportedEngine, render_block_to_string
 
 
 class TestDjango(TestCase):

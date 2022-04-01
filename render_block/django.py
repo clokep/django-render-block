@@ -1,8 +1,8 @@
 from copy import copy
 
 from django.template import Context, RequestContext
-from django.template.context import RenderContext
 from django.template.base import TextNode
+from django.template.context import RenderContext
 from django.template.loader_tags import (
     BLOCK_CONTEXT_KEY,
     BlockContext,
