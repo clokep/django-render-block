@@ -4,6 +4,7 @@ from django.template import Context
 from django.test import RequestFactory, TestCase, modify_settings, override_settings
 
 from render_block import BlockNotFound, UnsupportedEngine, render_block_to_string
+from render_block.django import _NODES_CACHE
 
 
 class TestDjango(TestCase):
@@ -141,6 +142,14 @@ class TestDjango(TestCase):
         )
 
         self.assertEqual(result, "/dummy-url")
+
+    def test_node_cache(self):
+        """Test rendering from cache."""
+        render_block_to_string("test1.html", "block1")
+        _NODES_CACHE["test1.html@fakeblock"] = _NODES_CACHE["test1.html@block1"]
+        result = render_block_to_string("test1.html", "fakeblock")
+        self.assertEqual(result, "block1 from test1")
+
 
 
 @override_settings(
