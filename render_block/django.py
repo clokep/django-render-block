@@ -56,7 +56,7 @@ def django_render_block(template, block_name, context, request=None):
                 # Check the parent template for this block.
                 node, render_context = _find_template_block(parent_template, block_name, context_instance)
 
-            if not settings.DEBUG:
+            if not template.engine.debug:
                 _NODES_CACHE[cache_key] = node, render_context
 
         context_instance.render_context = render_context
