@@ -67,7 +67,7 @@ def django_render_block(template, block_name, context, request=None):
 
 
 def _make_node_cache_key(template, block_name):
-    return f'{template.name}@{block_name}'
+    return f"{template.name}@{block_name}"
 
 
 def _build_block_context(template, context):
