@@ -151,7 +151,6 @@ class TestDjango(TestCase):
         self.assertEqual(result, "block1 from test1")
 
 
-
 @override_settings(
     TEMPLATES=[
         {

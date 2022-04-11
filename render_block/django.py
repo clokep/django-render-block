@@ -1,6 +1,5 @@
 from copy import copy
 
-from django.conf import settings
 from django.template import Context, RequestContext
 from django.template.base import TextNode
 from django.template.context import RenderContext
@@ -45,7 +44,9 @@ def django_render_block(template, block_name, context, request=None):
             parent_template = _build_block_context(template, context_instance)
 
             try:
-                node, render_context = _find_template_block(template, block_name, context_instance)
+                node, render_context = _find_template_block(
+                    template, block_name, context_instance
+                )
             except BlockNotFound:
                 # The block wasn't found in the current template.
 
@@ -54,7 +55,9 @@ def django_render_block(template, block_name, context, request=None):
                     raise
 
                 # Check the parent template for this block.
-                node, render_context = _find_template_block(parent_template, block_name, context_instance)
+                node, render_context = _find_template_block(
+                    parent_template, block_name, context_instance
+                )
 
             if not template.engine.debug:
                 _NODES_CACHE[cache_key] = node, render_context
