@@ -3,8 +3,8 @@
 Changelog
 #########
 
-next
-====
+0.9.2 (October 13, 2022)
+========================
 
 Maintenance
 -----------
@@ -15,6 +15,7 @@ Maintenance
   and `flake8 <https://flake8.pycqa.org>`_, and `pyupgrade <https://github.com/asottile/pyupgrade>`_.
   (`#38 <https://github.com/clokep/django-render-block/pull/38>`_,
   `#39 <https://github.com/clokep/django-render-block/pull/39>`_)
+* Update to include and run tests for Django 4.1
 
 0.9.1 (December 15, 2021)
 =========================
