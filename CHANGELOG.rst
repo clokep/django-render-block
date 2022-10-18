@@ -3,7 +3,7 @@
 Changelog
 #########
 
-0.9.2 (October 14, 2022)
+0.9.2 (October 18, 2022)
 ========================
 
 Maintenance
