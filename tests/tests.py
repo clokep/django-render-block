@@ -1,10 +1,11 @@
+from collections import namedtuple
 from unittest import skip
 
-from django.template import Context
+from django.template import Context, Template
 from django.test import RequestFactory, TestCase, modify_settings, override_settings
 
 from render_block import BlockNotFound, UnsupportedEngine, render_block_to_string
-from render_block.django import _NODES_CACHE
+from render_block.django import _NODES_CACHE, django_render_block
 
 
 class TestDjango(TestCase):
@@ -149,6 +150,22 @@ class TestDjango(TestCase):
         _NODES_CACHE["test1.html@fakeblock"] = _NODES_CACHE["test1.html@block1"]
         result = render_block_to_string("test1.html", "fakeblock")
         self.assertEqual(result, "block1 from test1")
+
+    def test_node_cache_anonymous_template(self):
+        """
+        Test rendering from cache for anonymous templates.
+
+        Cache key must be created from template source instead of template name
+        to avoid clashes.
+        """
+        T = namedtuple("T", ["template"])
+        template_1 = Template("{% block b %}foo {{ foo }}{% endblock %}")
+        template_2 = Template("{% block b %}bar {{ foo }}{% endblock %}")
+
+        result = django_render_block(T(template_1), "b", {"foo": "1"})
+        self.assertEqual(result, "foo 1")
+        result = django_render_block(T(template_2), "b", {"foo": "2"})
+        self.assertEqual(result, "bar 2")
 
 
 @override_settings(

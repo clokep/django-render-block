@@ -1,4 +1,5 @@
 from copy import copy
+import hashlib
 
 from django.template import Context, RequestContext
 from django.template.base import TextNode
@@ -59,7 +60,7 @@ def django_render_block(template, block_name, context, request=None):
                     parent_template, block_name, context_instance
                 )
 
-            if not template.engine.debug:
+            if cache_key and not template.engine.debug:
                 _NODES_CACHE[cache_key] = node, render_context
 
         context_instance.render_context = render_context
@@ -67,7 +68,12 @@ def django_render_block(template, block_name, context, request=None):
 
 
 def _make_node_cache_key(template, block_name):
-    return f"{template.name}@{block_name}"
+    if template.name:
+        key = template.name
+    else:
+        source = template.source.encode()
+        key = hashlib.md5(source).hexdigest()
+    return f"{key}@{block_name}"
 
 
 def _build_block_context(template, context):
