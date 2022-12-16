@@ -49,10 +49,10 @@ And from the Python shell:
 .. code-block:: python
 
     >>> from render_block import render_block_to_string
-    >>> print render_block_to_string('test2.html', 'block1')
-    u'block1 from test2'
-    >>> print render_block_to_string('test2.html', 'block2')
-    u'block2 from test1'
+    >>> print(render_block_to_string('test2.html', 'block1'))
+    'block1 from test2'
+    >>> print(render_block_to_string('test2.html', 'block2'))
+    'block2 from test1'
 
 It can also accept a context as a ``dict`` (just like ``render_to_string``), in
 ``test3.html``:
@@ -65,8 +65,8 @@ And from Python:
 
 .. code-block:: python
 
-    >>> print render_block_to_string('test3.html', 'block3', {'variable': 'test'})
-    u'Render this test!'
+    >>> print(render_block_to_string('test3.html', 'block3', {'variable': 'test'}))
+    'Render this test!'
 
 API Reference
 =============
