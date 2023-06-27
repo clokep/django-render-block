@@ -24,7 +24,7 @@ jobs:
         run: python -m pip install pyupgrade==2.31.1 flake8==4.0.1 black==22.3.0 isort==5.10.1
 
       - name: "Run pyupgrade"
-        run: pyupgrade --py37-plus **/*.py
+        run: pyupgrade --py38-plus **/*.py
 
       - name: "Run flake8"
         run: flake8
@@ -42,7 +42,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
 
     steps:
       - uses: actions/checkout@v2

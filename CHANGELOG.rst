@@ -3,6 +3,17 @@
 Changelog
 #########
 
+next
+====
+
+Maintenance
+-----------
+
+* Support Python 3.11. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_)
+* Drop support for Python 3.7. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_)
+* Support Django 4.2. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_)
+* Drop support for Django < 3.2; Django 4.0. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_)
+
 0.9.2 (October 18, 2022)
 ========================
 
