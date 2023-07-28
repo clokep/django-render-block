@@ -55,10 +55,6 @@ class TestDjango(TestCase):
             result, "block2 from test6 - block2 from test3 - block2 from test1"
         )
 
-    def test_render_block_in_multi_inherited_template(self):
-        result = render_block_to_string("test8_django.html", "block1")
-        self.assertEqual(result, "block3 from test8")
-
     def test_multi_level_inherited_template_block(self):
         result = render_block_to_string("test8_django.html", "block1")
         self.assertEqual(result, "block3 from test8")
