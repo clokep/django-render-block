@@ -142,6 +142,14 @@ class TestDjango(TestCase):
 
         self.assertEqual(result, "/dummy-url")
 
+    def test_none_nodelist(self):
+        """
+        Test that a template containing a template tag which defines child_nodelist attributes as None before the
+        desired block is found will still properly find and render the desired block.
+        """
+        result = render_block_to_string("test_none_nodelist.html", "block1")
+        self.assertEqual(result, "block1 from test_none_nodelist")
+
 
 @override_settings(
     TEMPLATES=[
