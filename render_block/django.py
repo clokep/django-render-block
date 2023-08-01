@@ -106,6 +106,8 @@ def _render_template_block_nodelist(nodelist, block_name, context):
         for attr in node.child_nodelists:
             try:
                 new_nodelist = getattr(node, attr)
+                if new_nodelist is None:
+                    raise AttributeError()
             except AttributeError:
                 continue
 
