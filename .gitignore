@@ -29,3 +29,6 @@ pip-log.txt
 
 # Editor files
 .idea
+
+# Virtual environment
+.venv
