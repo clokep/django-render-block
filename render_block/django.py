@@ -34,9 +34,12 @@ def django_render_block(template, block_name, context, request=None):
     # Bind the template to the context.
     with context_instance.render_context.push_state(template):
         with context_instance.bind_template(template):
-            # Before trying to render the template, we need to traverse the tree of
-            # parent templates and find all blocks in them.
-            parent_template = _build_block_context(template, context_instance)
+            parent_templates = []
+
+            # Populate  parent_templates with the parent templates of the current
+            # template, and adds the blocks from those parent templates to the
+            # context.
+            _build_block_context(template, context_instance, parent_templates)
 
             try:
                 return _render_template_block(template, block_name, context_instance)
@@ -44,16 +47,20 @@ def django_render_block(template, block_name, context, request=None):
                 # The block wasn't found in the current template.
 
                 # If there's no parent template (i.e. no ExtendsNode), re-raise.
-                if not parent_template:
+                if not len(parent_templates):
                     raise
 
                 # Check the parent template for this block.
-                return _render_template_block(
-                    parent_template, block_name, context_instance
-                )
+                for parent_template in parent_templates:
+                    try:
+                        return _render_template_block(
+                            parent_template, block_name, context_instance
+                        )
+                    except BlockNotFound:
+                        continue
 
 
-def _build_block_context(template, context):
+def _build_block_context(template, context, parent_templates):
     """Populate the block context with BlockNodes from parent templates."""
 
     # Ensure there's a BlockContext before rendering. This allows blocks in
@@ -77,9 +84,9 @@ def _build_block_context(template, context):
                 }
             )
 
-            _build_block_context(compiled_parent, context)
-            return compiled_parent
-
+            _build_block_context(compiled_parent, context, parent_templates)
+            parent_templates.insert(0, compiled_parent)
+            return parent_templates
         # The ExtendsNode has to be the first non-text node.
         if not isinstance(node, TextNode):
             break

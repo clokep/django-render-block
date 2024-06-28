@@ -104,6 +104,10 @@ class TestDjango(TestCase):
             exc.exception, "Exception raised in template tag."
         )
 
+    def test_multi_level_inherited_template_block(self):
+        result = render_block_to_string("test9_django.html", "block1")
+        self.assertEqual(result, "block1 from test7")
+
     def test_context(self):
         """Test that a context is properly rendered in a template."""
         data = "block2 from test5"
