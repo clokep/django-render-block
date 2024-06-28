@@ -50,7 +50,9 @@ def django_render_block(
 
 
 def _build_block_context(template: Template, context: Context) -> None:
-    """Populate the block context with BlockNodes from this template and parent templates."""
+    """
+    Populate the block context with BlockNodes from this template and parent templates.
+    """
 
     # Ensure there's a BlockContext before rendering. This allows blocks in
     # ExtendsNodes to be found by sub-templates (allowing {{ block.super }} and

@@ -33,7 +33,9 @@ class TestDjango(TestCase):
 
     def test_inherit_context(self) -> None:
         """This block is inherited from test1."""
-        result = render_block_to_string("test2.html", "block2", Context({"suffix2": " blah"}))
+        result = render_block_to_string(
+            "test2.html", "block2", Context({"suffix2": " blah"})
+        )
         self.assertEqual(result, "block2 from test1 blah")
 
     def test_multi_inherited(self) -> None:
@@ -43,7 +45,9 @@ class TestDjango(TestCase):
 
     def test_multi_inherited_context(self) -> None:
         """A block from an included template should be available."""
-        result = render_block_to_string("test4.html", "block2", Context({"suffix2": " blah"}))
+        result = render_block_to_string(
+            "test4.html", "block2", Context({"suffix2": " blah"})
+        )
         self.assertEqual(result, "block2 from test1 blah")
 
     def test_no_block(self) -> None:
