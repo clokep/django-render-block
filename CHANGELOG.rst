@@ -11,7 +11,7 @@ Bugfixes
 
 * Fixes exception propagation when rendering templates. Contributed
   by `@yaakovLowenstein <https://github.com/yaakovLowenstein>`_. (`#52 <https://github.com/clokep/django-render-block/pull/52>`_)
-
+* Fix rendering blocks over multiple extended templates. (`#56 <https://github.com/clokep/django-render-block/pull/56>`_)
 
 Maintenance
 -----------
