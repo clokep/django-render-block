@@ -1,6 +1,7 @@
 from unittest import skip
 
 from django.template import Context
+from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, modify_settings, override_settings
 
 from render_block import BlockNotFound, UnsupportedEngine, render_block_to_string
@@ -91,11 +92,18 @@ class TestDjango(TestCase):
         result = render_block_to_string("test_sub.html", "first")
         self.assertEqual(result, "\nbar\n")
 
-    @override_settings(DEBUG=True)
-    def test_exceptions_in_templates(self):
+    def test_exceptions(self):
         with self.assertRaises(Exception) as e:
             render_block_to_string("test_exception.html", "exception_block")
         self.assertEqual(str(e.exception), "Exception raised in template tag.")
+
+    @override_settings(DEBUG=True)
+    def test_exceptions_debug(self):
+        with self.assertRaises(Exception) as exc:
+            render_block_to_string("test_exception.html", "exception_block")
+        self.assertExceptionMessageEquals(
+            exc.exception, "Exception raised in template tag."
+        )
 
     def test_context(self):
         """Test that a context is properly rendered in a template."""
