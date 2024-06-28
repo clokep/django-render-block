@@ -6,13 +6,25 @@ Changelog
 next
 ====
 
+Bugfixes
+--------
+
+* Fixes exception propagation when rendering templates. Contributed
+  by `@yaakovLowenstein <https://github.com/yaakovLowenstein>`_. (`#52 <https://github.com/clokep/django-render-block/pull/52>`_)
+
+
 Maintenance
 -----------
 
-* Support Python 3.11. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_)
+* Support Python 3.11 and 3.12. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_,
+  `#55 <https://github.com/clokep/django-render-block/pull/55>`_)
 * Drop support for Python 3.7. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_)
-* Support Django 4.2. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_)
-* Drop support for Django < 3.2; Django 4.0. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_)
+* Support Django 4.2, 5.0 and 5.1. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_,
+  `#55 <https://github.com/clokep/django-render-block/pull/55>`_)
+* Drop support for Django < 3.2; Django 4.0; Django 4.1. (`#44 <https://github.com/clokep/django-render-block/pull/44>`_,
+  `#55 <https://github.com/clokep/django-render-block/pull/55>`_)
+* Add type hints and configure mypy. (`#54 <https://github.com/clokep/django-render-block/pull/54>`_)
+
 
 0.9.2 (October 18, 2022)
 ========================
@@ -30,6 +42,7 @@ Maintenance
   `Jack Linke <https://github.com/jacklinke>`_.
   (`#41 <https://github.com/clokep/django-render-block/pull/41>`_)
 
+
 0.9.1 (December 15, 2021)
 =========================
 
@@ -39,6 +52,7 @@ Maintenance
 * Support Python 3.10. (`#33 <https://github.com/clokep/django-render-block/pull/33>`_)
 * Fixed a packaging issue where the generated wheels were empty. Contributed
   by `@cordery <https://github.com/cordery>`_. (`#35 <https://github.com/clokep/django-render-block/pull/35>`_)
+
 
 0.9 (December 14, 2021)
 =======================
@@ -54,6 +68,7 @@ Maintenance
 * Changed packaging to use setuptools declarative config in ``setup.cfg``.
   (`#32 <https://github.com/clokep/django-render-block/pull/32>`_)
 
+
 0.8.1 (October 15, 2020)
 ========================
 
@@ -62,6 +77,7 @@ Bugfixes
 
 * Fixes a regression in v0.8 where a ``Context`` could not be re-used. Contributed
   by `@evanbrumley <https://github.com/evanbrumley>`_. (`#25 <https://github.com/clokep/django-render-block/pull/25>`_)
+
 
 0.8 (October 6, 2020)
 =====================
@@ -77,6 +93,7 @@ Maintenance
 
 * Drop support for Python 3.5, support Python 3.9. (`#22 <https://github.com/clokep/django-render-block/pull/22>`_)
 
+
 0.7 (July 13, 2020)
 ===================
 
@@ -88,6 +105,7 @@ Maintenance
   `#20 <https://github.com/clokep/django-render-block/pull/20>`_)
 * Drop support for Python 2.7. (`#19 <https://github.com/clokep/django-render-block/pull/19>`_)
 * Support Python 3.8. (`#18 <https://github.com/clokep/django-render-block/pull/18>`_)
+
 
 0.6 (May 8, 2019)
 =================
@@ -111,6 +129,7 @@ Maintenance
 * Fix rendering of README on PyPI. Contributed by `@mixxorz <https://github.com/mixxorz>`_.
   (`#10 <https://github.com/clokep/django-render-block/pull/10>`_)
 
+
 0.5 (September 1, 2016)
 =======================
 
@@ -120,6 +139,7 @@ Bugfixes
 * Fixes a major issue with inheriting templates and rendering a block found in
   the parent template, but overwriting part of it in the child template.
   (`#8 <https://github.com/clokep/django-render-block/pull/8>`_)
+
 
 0.4 (August 4, 2016)
 ====================
@@ -136,6 +156,7 @@ Maintenance
 * Support Django 1.10. (`#5 <https://github.com/clokep/django-render-block/pull/5>`_)
 * Support Python 3. (`#6 <https://github.com/clokep/django-render-block/pull/6>`_)
 
+
 0.3.1 (June 1, 2016)
 ====================
 
@@ -144,6 +165,7 @@ Maintenance
 
 * Refactoring to make more generic (for potentially supporting multiple
   templating engines).
+
 
 0.3 (May 27, 2016)
 ==================
@@ -156,6 +178,7 @@ Maintenance
   * Removed ``context_instance`` parameter.
   * Support for calling ``{{ block.super }}``.
 
+
 0.2.2 (January 10, 2011)
 ========================
 
@@ -165,6 +188,7 @@ Maintenance
   to fix an issue with nested extends. The specific bug was not reproducible,
   but the additional code shouldn't hurt.
 
+
 0.2.1 (August 27, 2010)
 =======================
 
@@ -173,6 +197,7 @@ Maintenance
   by `chadselph <https://djangosnippets.org/users/chadselph/>`_
   to remove a pointless render. The specific bug was not reproducible, but the
   removed code was extraneous.
+
 
 0.2 (August 4, 2008)
 ====================
@@ -187,6 +212,7 @@ Maintenance
   3. Less code
   4. Allow list of templates to be passed which is closer to the behavior of
      ``render_to_response``
+
 
 0.1 (May 22, 2008)
 ==================
