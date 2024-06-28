@@ -55,6 +55,11 @@ class TestDjango(TestCase):
             result, "block2 from test6 - block2 from test3 - block2 from test1"
         )
 
+    def test_multi_inherited(self) -> None:
+        """A block from an included template should be available."""
+        result = render_block_to_string("test4.html", "block2")
+        self.assertEqual(result, "block2 from test1")
+
     def test_super_with_same_context_on_multiple_executions(self) -> None:
         """Test that block.super works when fed the same context object twice."""
         context = Context()
@@ -216,6 +221,12 @@ class TestJinja2(TestCase):
         self.assertEqual(
             result, "block2 from test6 - block2 from test3 - block2 from test1"
         )
+
+    @skip("Not currently supported.")
+    def test_multi_inherited(self) -> None:
+        """A block from an included template should be available."""
+        result = render_block_to_string("test4.html", "block2")
+        self.assertEqual(result, "block2 from test1")
 
     def test_subblock(self) -> None:
         """Test that a block within a block works."""
