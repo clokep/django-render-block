@@ -1,7 +1,6 @@
 from unittest import skip
 
 from django.template import Context
-from django.template.loader import render_to_string
 from django.test import RequestFactory, TestCase, modify_settings, override_settings
 
 from render_block import BlockNotFound, UnsupportedEngine, render_block_to_string
