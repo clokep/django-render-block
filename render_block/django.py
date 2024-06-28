@@ -28,26 +28,29 @@ def django_render_block(template, block_name, context, request=None):
     else:
         context_instance = Context(context)
 
-    # Get the underlying django.template.base.Template object.
+    # Get the underlying django.template.base.Template object from the backend.
     template = template.template
 
     # Bind the template to the context.
-    with context_instance.bind_template(template):
-        # Before trying to render the template, we need to traverse the tree of
-        # parent templates and find all blocks in them.
-        parent_template = _build_block_context(template, context_instance)
+    with context_instance.render_context.push_state(template):
+        with context_instance.bind_template(template):
+            # Before trying to render the template, we need to traverse the tree of
+            # parent templates and find all blocks in them.
+            parent_template = _build_block_context(template, context_instance)
 
-        try:
-            return _render_template_block(template, block_name, context_instance)
-        except BlockNotFound:
-            # The block wasn't found in the current template.
+            try:
+                return _render_template_block(template, block_name, context_instance)
+            except BlockNotFound:
+                # The block wasn't found in the current template.
 
-            # If there's no parent template (i.e. no ExtendsNode), re-raise.
-            if not parent_template:
-                raise
+                # If there's no parent template (i.e. no ExtendsNode), re-raise.
+                if not parent_template:
+                    raise
 
-            # Check the parent template for this block.
-            return _render_template_block(parent_template, block_name, context_instance)
+                # Check the parent template for this block.
+                return _render_template_block(
+                    parent_template, block_name, context_instance
+                )
 
 
 def _build_block_context(template, context):
