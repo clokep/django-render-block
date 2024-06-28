@@ -1,4 +1,7 @@
-from django.template import loader
+from typing import List, Optional, Tuple, Union
+
+from django.http import HttpRequest
+from django.template import Context, loader
 from django.template.backends.django import Template as DjangoTemplate
 
 try:
@@ -6,7 +9,7 @@ try:
 except ImportError:
     # Most likely Jinja2 isn't installed, in that case just create a class since
     # we always want it to be false anyway.
-    class Jinja2Template:
+    class Jinja2Template:  # type: ignore[no-redef]
         pass
 
 
@@ -14,7 +17,12 @@ from render_block.django import django_render_block
 from render_block.exceptions import UnsupportedEngine
 
 
-def render_block_to_string(template_name, block_name, context=None, request=None):
+def render_block_to_string(
+    template_name: Union[str, Tuple[str], List[str]],
+    block_name: str,
+    context: Optional[Context] = None,
+    request: Optional[HttpRequest] = None,
+) -> str:
     """
     Loads the given template_name and renders the given block with the given
     dictionary as context. Returns a string.

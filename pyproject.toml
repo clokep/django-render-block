@@ -1,3 +1,18 @@
 [build-system]
 requires = ["setuptools>=38.6.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.mypy]
+warn_unused_configs = true
+strict = false
+warn_return_any = true
+follow_imports = "normal"
+show_error_codes = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+warn_unreachable = true
+no_implicit_optional = true
+files = [
+    "render_block",
+    "tests",
+]

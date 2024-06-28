@@ -1,7 +1,12 @@
+from django.template import Context
+from django.template.backends.jinja2 import Template as Jinja2Template
+
 from render_block.exceptions import BlockNotFound
 
 
-def jinja2_render_block(template, block_name, context):
+def jinja2_render_block(
+    template: Jinja2Template, block_name: str, context: Context
+) -> str:
     # Get the underlying jinja2.environment.Template object.
     template = template.template
 

@@ -1,7 +1,10 @@
 from copy import copy
+from typing import Optional
 
+from django.http import HttpRequest
 from django.template import Context, RequestContext
-from django.template.base import TextNode
+from django.template.backends.django import Template as DjangoTemplate
+from django.template.base import NodeList, Template, TextNode
 from django.template.context import RenderContext
 from django.template.loader_tags import (
     BLOCK_CONTEXT_KEY,
@@ -13,7 +16,12 @@ from django.template.loader_tags import (
 from render_block.exceptions import BlockNotFound
 
 
-def django_render_block(template, block_name, context, request=None):
+def django_render_block(
+    template: DjangoTemplate,
+    block_name: str,
+    context: Context,
+    request: Optional[HttpRequest] = None,
+) -> str:
     # Create a Django Context if needed
     if isinstance(context, Context):
         # Make a copy of the context and reset the rendering state.
@@ -53,7 +61,7 @@ def django_render_block(template, block_name, context, request=None):
                 )
 
 
-def _build_block_context(template, context):
+def _build_block_context(template: Template, context: Context) -> Optional[Template]:
     """Populate the block context with BlockNodes from parent templates."""
 
     # Ensure there's a BlockContext before rendering. This allows blocks in
@@ -84,13 +92,19 @@ def _build_block_context(template, context):
         if not isinstance(node, TextNode):
             break
 
+    return None
 
-def _render_template_block(template, block_name, context):
+
+def _render_template_block(
+    template: Template, block_name: str, context: Context
+) -> str:
     """Renders a single block from a template."""
     return _render_template_block_nodelist(template.nodelist, block_name, context)
 
 
-def _render_template_block_nodelist(nodelist, block_name, context):
+def _render_template_block_nodelist(
+    nodelist: NodeList, block_name: str, context: Context
+) -> str:
     """Recursively iterate over a node to find the wanted block."""
 
     # Attempt to find the wanted block in the current template.
@@ -102,7 +116,7 @@ def _render_template_block_nodelist(nodelist, block_name, context):
 
             # If the name matches, you're all set and we found the block!
             if node.name == block_name:
-                return node.render(context)
+                return node.render(context)  # type: ignore[no-any-return]
 
         # If a node has children, recurse into them. Based on
         # django.template.base.Node.get_nodes_by_type.
