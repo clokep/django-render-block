@@ -31,6 +31,21 @@ class TestDjango(TestCase):
         result = render_block_to_string("test2.html", "block2")
         self.assertEqual(result, "block2 from test1")
 
+    def test_inherit_context(self) -> None:
+        """This block is inherited from test1."""
+        result = render_block_to_string("test2.html", "block2", Context({"suffix2": " blah"}))
+        self.assertEqual(result, "block2 from test1 blah")
+
+    def test_multi_inherited(self) -> None:
+        """A block from an included template should be available."""
+        result = render_block_to_string("test4.html", "block2")
+        self.assertEqual(result, "block2 from test1")
+
+    def test_multi_inherited_context(self) -> None:
+        """A block from an included template should be available."""
+        result = render_block_to_string("test4.html", "block2", Context({"suffix2": " blah"}))
+        self.assertEqual(result, "block2 from test1 blah")
+
     def test_no_block(self) -> None:
         """Check if there's no block available an exception is raised."""
         with self.assertRaises(BlockNotFound) as exc:
@@ -54,11 +69,6 @@ class TestDjango(TestCase):
         self.assertEqual(
             result, "block2 from test6 - block2 from test3 - block2 from test1"
         )
-
-    def test_multi_inherited(self) -> None:
-        """A block from an included template should be available."""
-        result = render_block_to_string("test4.html", "block2")
-        self.assertEqual(result, "block2 from test1")
 
     def test_super_with_same_context_on_multiple_executions(self) -> None:
         """Test that block.super works when fed the same context object twice."""
