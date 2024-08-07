@@ -20,7 +20,7 @@ from render_block.exceptions import UnsupportedEngine
 def render_block_to_string(
     template_name: Union[str, Tuple[str], List[str]],
     block_name: str,
-    context: Optional[Context] = None,
+    context: Optional[Union[Context, dict]] = None,
     request: Optional[HttpRequest] = None,
 ) -> str:
     """
