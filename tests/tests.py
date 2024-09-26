@@ -1,13 +1,22 @@
 from unittest import skip
+from unittest.mock import patch
 
 from django.template import Context
-from django.test import RequestFactory, TestCase, modify_settings, override_settings
+from django.test import (
+    Client,
+    RequestFactory,
+    TestCase,
+    modify_settings,
+    override_settings,
+)
+from django.test.signals import template_rendered
+from django.urls import reverse
 
 from render_block import BlockNotFound, UnsupportedEngine, render_block_to_string
 
 
-class TestDjango(TestCase):
-    """Test the Django templating engine."""
+class TestRenderBlockToStringForDjango(TestCase):
+    """Test render_block_to_string for the Django templating engine."""
 
     def assertExceptionMessageEquals(self, exception: Exception, expected: str) -> None:
         self.assertEqual(expected, exception.args[0])
@@ -175,6 +184,72 @@ class TestDjango(TestCase):
         self.assertEqual(result, "/dummy-url")
 
 
+@modify_settings(
+    INSTALLED_APPS={
+        "prepend": [
+            "django.contrib.auth",
+            "django.contrib.contenttypes",
+        ],
+    },
+)
+class TestRenderBlockForDjango(TestCase):
+    """Test render_block for the Django templating engine."""
+
+    def setUp(self):
+        self.mock_method = patch(
+            "render_block.BlockOfTemplateResponse.notify_block_render"
+        ).start()
+        self.mock_method.side_effect = lambda template, context: template_rendered.send(
+            sender=None, template=template, context=context
+        )
+
+    def tearDown(self):
+        self.mock_method.stop()
+
+    def assertExceptionMessageEquals(self, exception: Exception, expected: str) -> None:
+        self.assertEqual(expected, exception.args[0])
+
+    def test_block(self) -> None:
+        client = Client()
+        data = {
+            "template_name": "test5.html",
+            "block_name": "block2",
+            "foo": "bar",
+        }
+        response = client.post(reverse("block"), data=data)
+
+        result = response.content.decode("utf-8")
+        self.assertEqual(result, "bar")
+        self.assertEquals(response.context["foo"], "bar")
+
+    @override_settings(
+        TEMPLATES=[
+            {
+                "BACKEND": "django.template.backends.dummy.TemplateStrings",
+                "DIRS": ["tests/templates"],
+                "APP_DIRS": True,
+            }
+        ]
+    )
+    def test_different_backend(self) -> None:
+        """
+        Ensure an exception is thrown if a different backed from the Django
+        backend is used.
+        """
+        client = Client()
+        data = {
+            "template_name": "test5.html",
+            "block_name": "block2",
+            "foo": "bar",
+        }
+        with self.assertRaises(UnsupportedEngine) as exc:
+            client.post(reverse("block"), data=data)
+
+        self.assertExceptionMessageEquals(
+            exc.exception, "Can only render blocks from the Django template backend."
+        )
+
+
 @override_settings(
     TEMPLATES=[
         {
@@ -184,8 +259,8 @@ class TestDjango(TestCase):
         }
     ]
 )
-class TestJinja2(TestCase):
-    """Test the Django templating engine."""
+class TestRenderBlockToStringForJinja2(TestCase):
+    """Test render_block_to_string for the Jinja2 templating engine."""
 
     def assertExceptionMessageEquals(self, exception: Exception, expected: str) -> None:
         self.assertEqual(expected, exception.args[0])
@@ -271,3 +346,70 @@ class TestJinja2(TestCase):
         data = "block2 from test5"
         result = render_block_to_string("test5.html", "block2", {"foo": data})
         self.assertEqual(result, data)
+
+
+@override_settings(
+    TEMPLATES=[
+        {
+            "BACKEND": "django.template.backends.jinja2.Jinja2",
+            "DIRS": ["tests/templates"],
+            "APP_DIRS": True,
+        }
+    ]
+)
+class TestRenderBlockForJinja2(TestCase):
+    """Test render_block for the Jinja2 templating engine."""
+
+    def setUp(self):
+        self.mock_method = patch(
+            "render_block.BlockOfTemplateResponse.notify_block_render"
+        ).start()
+        self.mock_method.side_effect = lambda template, context: template_rendered.send(
+            sender=None, template=template, context=context
+        )
+
+    def tearDown(self):
+        self.mock_method.stop()
+
+    def assertExceptionMessageEquals(self, exception: Exception, expected: str) -> None:
+        self.assertEqual(expected, exception.args[0])
+
+    def test_block(self) -> None:
+        client = Client()
+        data = {
+            "template_name": "test5.html",
+            "block_name": "block2",
+            "foo": "bar",
+        }
+        response = client.post(reverse("block"), data=data)
+
+        result = response.content.decode("utf-8")
+        self.assertEqual(result, "bar")
+        self.assertEquals(response.context["foo"], "bar")
+
+    @override_settings(
+        TEMPLATES=[
+            {
+                "BACKEND": "django.template.backends.dummy.TemplateStrings",
+                "DIRS": ["tests/templates"],
+                "APP_DIRS": True,
+            }
+        ]
+    )
+    def test_different_backend(self) -> None:
+        """
+        Ensure an exception is thrown if a different backed from the Django
+        backend is used.
+        """
+        client = Client()
+        data = {
+            "template_name": "test5.html",
+            "block_name": "block2",
+            "foo": "bar",
+        }
+        with self.assertRaises(UnsupportedEngine) as exc:
+            client.post(reverse("block"), data=data)
+
+        self.assertExceptionMessageEquals(
+            exc.exception, "Can only render blocks from the Django template backend."
+        )
