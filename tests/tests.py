@@ -220,7 +220,7 @@ class TestRenderBlockForDjango(TestCase):
 
         result = response.content.decode("utf-8")
         self.assertEqual(result, "bar")
-        self.assertEquals(response.context["foo"], "bar")
+        self.assertEqual(response.context["foo"], "bar")
 
     @override_settings(
         TEMPLATES=[
@@ -385,7 +385,7 @@ class TestRenderBlockForJinja2(TestCase):
 
         result = response.content.decode("utf-8")
         self.assertEqual(result, "bar")
-        self.assertEquals(response.context["foo"], "bar")
+        self.assertEqual(response.context["foo"], "bar")
 
     @override_settings(
         TEMPLATES=[
