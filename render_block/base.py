@@ -91,7 +91,10 @@ def render_block(
 
 
 class BlockOfTemplateResponse(TemplateResponse):
-    """This class implements a TemplateResponse that only renders a block from the template."""
+    """
+    This class implements a TemplateResponse that only renders a block from the
+    template.
+    """
 
     def __init__(
         self,
