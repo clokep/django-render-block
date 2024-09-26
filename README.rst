@@ -131,31 +131,26 @@ tests. However, its ``notify_block_render()`` method must be mocked so that
 it sends a specific signal. This signal is handled by the test client to
 add the context to the ``Response`` object.
 
-One way to mock the ``notify_block_render()`` method is to use the following fixture,
-which you can put in a ``conftest.py`` in your tests directory:
+One way to mock the ``notify_block_render()`` method is to use the following
+setup and tear-down code in your test classes:
 
 .. code-block:: python
 
-    @pytest.fixture(autouse=True)
-    def _ensure_block_of_template_response_stores_context() -> Iterator[None]:
-        """
-        This fixture ensures that BlockOfTemplateResponse gives a signal about a template
-        being rendered during tests. This signal makes sure that the context is set to the
-        response object in the test, allowing assertions to be made using the context.
-        The TemplateResponse class uses the same signal to get the context added to the
-        response during tests. Thus, this fixture makes rendering a block of a template be
-        just as easy to test as rendering a complete template.
-        """
-        mock_method = patch(
-            "render_block.BlockOfTemplateResponse.notify_block_render"
-        ).start()
-        mock_method.side_effect = lambda template, context: template_rendered.send(
-            sender=None, template=template, context=context
-        )
+    from unittest.mock import patch
+    from django.test.signals import template_rendered
 
-        yield
+    class TestYourCode(TestCase):
 
-        mock_method.stop()
+        def setUp(self):
+            self.mock_method = patch(
+                "render_block.BlockOfTemplateResponse.notify_block_render"
+            ).start()
+            self.mock_method.side_effect = lambda template, context: template_rendered.send(
+                sender=None, template=template, context=context
+            )
+
+        def tearDown(self):
+            self.mock_method.stop()
 
 Assuming a view exists that uses ``render_block()`` and you want to test the context that
 was passed as parameter to ``render_block()``, you can access the context in your tests,
@@ -165,7 +160,7 @@ like this:
 
     response = client.get(reverse("logbook:messages_overview"))
     assert response.status_code == 200
-    assert response.context["messages"] == ["Hello, World!", "How do yo do?"]
+    assert response.context["messages"] == ["Disk is full.", "Uninstalled unused apps."]
 
 Contributing
 ============
