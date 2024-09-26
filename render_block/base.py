@@ -1,8 +1,9 @@
-from typing import List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.template import Context, loader
 from django.template.backends.django import Template as DjangoTemplate
+from django.template.response import TemplateResponse
 
 try:
     from django.template.backends.jinja2 import Template as Jinja2Template
@@ -27,10 +28,13 @@ def render_block_to_string(
     Loads the given template_name and renders the given block with the given
     dictionary as context. Returns a string.
 
-        template_name
+    :param template_name:
             The name of the template to load and render. If it's a list of
             template names, Django uses select_template() instead of
             get_template() to find the template.
+    :param block_name: The name of the block to load.
+    :param context: The context dictionary used while rendering the template.
+    :param request: The request that triggers the rendering of the block.
     """
 
     # Like render_to_string, template_name can be a string or a list/tuple.
@@ -55,3 +59,64 @@ def render_block_to_string(
         raise UnsupportedEngine(
             "Can only render blocks from the Django template backend."
         )
+
+
+def render_block(
+    request: HttpRequest,
+    template_name: str,
+    block_name: str,
+    context: Dict[str, Any] | None = None,
+    status: int | None = None,
+) -> HttpResponse:
+    """
+    Loads the given template_name and renders the given block with the given dictionary
+    as context. Returns a HttpResponseForBlock instance.
+
+    :param request: The request that triggers the rendering of the block.
+    :param template_name:
+            The name of the template to load and render. If it's a list of
+            template names, Django uses select_template() instead of
+            get_template() to find the template.
+    :param block_name: The name of the block to load.
+    :param context: The context dictionary used while rendering the template.
+    :param status: The status of the response.
+    """
+    return BlockOfTemplateResponse(
+        request=request,
+        template_name=template_name,
+        block_name=block_name,
+        context=context,
+        status=status,
+    )
+
+
+class BlockOfTemplateResponse(TemplateResponse):
+    """This class implements a TemplateResponse that only renders a block from the template."""
+
+    def __init__(
+        self,
+        request: HttpRequest,
+        template_name: str,
+        block_name: str,
+        context: dict[str, Any] | None = None,
+        status: int | None = None,
+    ):
+        super().__init__(
+            request=request, template=template_name, context=context, status=status
+        )
+        self.block_name = block_name
+
+    @property
+    def rendered_content(self) -> str:
+        context = self.resolve_context(self.context_data)
+        self.notify_block_render(self.template_name, context)
+        return render_block_to_string(
+            self.template_name, self.block_name, context=context, request=self._request
+        )
+
+    def notify_block_render(
+        self,
+        template_name: Union[List[str], Tuple[str, ...], DjangoTemplate, str],
+        context: Union[Dict[str, Any], None],
+    ) -> None:
+        pass
