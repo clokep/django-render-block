@@ -1,4 +1,6 @@
-from django.http import HttpResponse
+from typing import Dict, Optional, Any
+
+from django.http import HttpResponse, HttpRequest
 from django.views import View
 
 from render_block import render_block
@@ -9,8 +11,8 @@ class BlockView(View):
     This view simply calls render_block with parameters from the data of the request.
     """
 
-    def post(self, request) -> HttpResponse:
-        context = {
+    def post(self, request: HttpRequest) -> HttpResponse:
+        context: Optional[Dict[str, Any]] = {
             key: request.POST.get(key)
             for key in request.POST.keys()
             if key not in ("template_name", "block_name")

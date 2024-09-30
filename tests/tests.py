@@ -195,7 +195,7 @@ class TestRenderBlockToStringForDjango(TestCase):
 class TestRenderBlockForDjango(TestCase):
     """Test render_block for the Django templating engine."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.mock_method = patch(
             "render_block.BlockOfTemplateResponse.notify_block_render"
         ).start()
@@ -203,7 +203,7 @@ class TestRenderBlockForDjango(TestCase):
             sender=None, template=template, context=context
         )
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.mock_method.stop()
 
     def assertExceptionMessageEquals(self, exception: Exception, expected: str) -> None:
@@ -360,7 +360,7 @@ class TestRenderBlockToStringForJinja2(TestCase):
 class TestRenderBlockForJinja2(TestCase):
     """Test render_block for the Jinja2 templating engine."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.mock_method = patch(
             "render_block.BlockOfTemplateResponse.notify_block_render"
         ).start()
@@ -368,7 +368,7 @@ class TestRenderBlockForJinja2(TestCase):
             sender=None, template=template, context=context
         )
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.mock_method.stop()
 
     def assertExceptionMessageEquals(self, exception: Exception, expected: str) -> None:
