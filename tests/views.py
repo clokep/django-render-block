@@ -1,6 +1,6 @@
-from typing import Dict, Optional, Any
+from typing import Any, Dict, Optional
 
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.views import View
 
 from render_block import render_block
