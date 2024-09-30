@@ -65,8 +65,8 @@ def render_block(
     request: HttpRequest,
     template_name: str,
     block_name: str,
-    context: Dict[str, Any] | None = None,
-    status: int | None = None,
+    context: Optional[Dict[str, Any]] = None,
+    status: Optional[int] = None,
 ) -> HttpResponse:
     """
     Loads the given template_name and renders the given block with the given dictionary
@@ -101,8 +101,8 @@ class BlockOfTemplateResponse(TemplateResponse):
         request: HttpRequest,
         template_name: str,
         block_name: str,
-        context: dict[str, Any] | None = None,
-        status: int | None = None,
+        context: Optional[Dict[str, Any]] = None,
+        status: Optional[int] = None,
     ):
         super().__init__(
             request=request, template=template_name, context=context, status=status
