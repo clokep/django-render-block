@@ -23,9 +23,9 @@ Features
 Requirements
 ============
 
-Django Render Block supports Django 4.2, 5.0, and 5.1 on Python 3.8, 3.9, 3.10,
-3.11 and 3.12 (see the Django documentation for which versions of Python are
-supported by particular Django versions).
+Django Render Block supports Django 4.2, 5.1, and 5.2 on Python 3.9, 3.10, 3.11,
+3.12, and 3.13 (see the `Django documentation <https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django>`_
+for which versions of Python are supported by particular Django versions).
 
 Examples
 ========
