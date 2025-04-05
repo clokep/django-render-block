@@ -3,6 +3,17 @@
 Changelog
 #########
 
+next
+====
+
+Maintenance
+-----------
+
+* Support Python 3.13.
+* Drop support for Python 3.8.
+* Support Django 5.2.
+* Drop support for Django 5.0.
+
 0.10 (July 15, 2024)
 ====================
 
