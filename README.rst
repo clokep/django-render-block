@@ -71,7 +71,7 @@ And from Python:
 API Reference
 =============
 
-The API is simple and attempts to mirror the built-in ``render_to_string`` API.
+The API is simple and attempts to mirror the built-in ``render_to_string`` and ``render`` API.
 
 ``render_block_to_string(template_name, block_name, context=None, request=None)``
 
@@ -95,6 +95,34 @@ The API is simple and attempts to mirror the built-in ``render_to_string`` API.
         ``request`` is optional and works only for Django templates. If both context and request
         are provided, a ``RequestContext`` will be used instead of a ``Context``.
 
+Similarly there is a ``render_block`` function which returns an `HttpResponse` with
+the content sent to the result of ``render_block_to_string`` with the same parameters.
+
+``render_block(request, template_name, block_name, context=None, content_type="text/html", status=200)``
+
+    ``request``
+        The request object used to render the template.
+
+    ``template_name``
+        The name of the template to load and render. If it’s a list of template
+        names, Django uses ``select_template()`` instead of ``get_template()``
+        to find the template.
+
+    ``block_name``
+        The name of the block to render from the above template.
+
+    ``context``
+        A ``dict`` to be used as the template’s context for rendering. A ``Context``
+        object can be provided for Django templates.
+
+        ``context`` is optional. If not provided, an empty context will be used.
+
+    ``content_type``
+        A ``str`` content type for the HTTP response.
+
+    ``status``
+        An ``int`` HTTP status code for the HTTP response.
+
 Exceptions
 ----------
 
@@ -115,52 +143,6 @@ There are also two additional errors that can be raised:
 
     ``UnsupportedEngine``
         Raised if a template backend besides the Django backend is used.
-
-Testing the context used by render_block
-========================================
-
-If you write tests with the test client, you typically use the test client's
-``get()`` and ``post()`` methods to test your view code. The return value of
-these methods is a ``Response`` object. It is not the same as the
-``HttpResponse`` object returned by your view. It has some additional data,
-such as the context that was used while rendering a template.
-
-The function ``render_block()`` returns a ``BlockOfTemplateResponse`` object,
-which has been prepared to make the context available to the response in
-tests. However, its ``notify_block_render()`` method must be mocked so that
-it sends a specific signal. This signal is handled by the test client to
-add the context to the ``Response`` object.
-
-One way to mock the ``notify_block_render()`` method is to use the following
-setup and tear-down code in your test classes:
-
-.. code-block:: python
-
-    from unittest.mock import patch
-    from django.test.signals import template_rendered
-
-    class TestYourCode(TestCase):
-
-        def setUp(self):
-            self.mock_method = patch(
-                "render_block.BlockOfTemplateResponse.notify_block_render"
-            ).start()
-            self.mock_method.side_effect = lambda template, context: template_rendered.send(
-                sender=None, template=template, context=context
-            )
-
-        def tearDown(self):
-            self.mock_method.stop()
-
-Assuming a view exists that uses ``render_block()`` and you want to test the context that
-was passed as parameter to ``render_block()``, you can access the context in your tests,
-like this:
-
-.. code-block:: python
-
-    response = client.get(reverse("logbook:messages_overview"))
-    assert response.status_code == 200
-    assert response.context["messages"] == ["Disk is full.", "Uninstalled unused apps."]
 
 Contributing
 ============

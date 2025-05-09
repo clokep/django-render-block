@@ -29,7 +29,4 @@ MIDDLEWARE_CLASSES: tuple = tuple()
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
 INSTALLED_APPS = ("tests",)
-
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
-
-ROOT_URLCONF = "tests.urls"
