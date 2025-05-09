@@ -3,6 +3,17 @@
 Changelog
 #########
 
+next
+====
+
+Maintenance
+-----------
+
+* Support Python 3.13. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+* Drop support for Python 3.8. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+* Support Django 5.2. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+* Drop support for Django 5.0. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+
 0.10 (July 15, 2024)
 ====================
 
