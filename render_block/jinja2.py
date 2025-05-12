@@ -17,7 +17,7 @@ def jinja2_render_block(
     try:
         gen = template.blocks[block_name](context)
     except KeyError:
-        raise BlockNotFound("block with name '%s' does not exist" % block_name)
+        raise BlockNotFound(f"block with name '{block_name}' does not exist")
 
     # The result from above is a generator which yields unicode strings.
-    return "".join([s for s in gen])
+    return "".join(s for s in gen)

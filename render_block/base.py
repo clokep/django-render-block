@@ -1,4 +1,5 @@
-from typing import Any, Mapping, Optional, Sequence, Union
+from collections.abc import Mapping, Sequence
+from typing import Any, Optional, Union
 
 from django.http import HttpRequest, HttpResponse
 from django.template import Context, loader
