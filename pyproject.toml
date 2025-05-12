@@ -2,6 +2,33 @@
 requires = ["setuptools>=38.6.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    "W",
+    # pyflakes
+    "F",
+    # flake8-bugbear
+    "B0",
+    # flake8-comprehensions
+    "C4",
+    # flake8-2020
+    "YTT",
+    # flake8-slots
+    "SLOT",
+    # flake8-debugger
+    "T10",
+    # flake8-pie
+    "PIE",
+    # flake8-executable
+    "EXE",
+    # isort
+    "I",
+    # pyupgrade
+    "UP",
+]
+
 [tool.mypy]
 warn_unused_configs = true
 strict = false

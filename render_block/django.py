@@ -80,6 +80,6 @@ def _render_template_block(block_name: str, context: Context) -> str:
 
     if block_node is None:
         # The wanted block_name was not found.
-        raise BlockNotFound("block with name '%s' does not exist" % block_name)
+        raise BlockNotFound(f"block with name '{block_name}' does not exist")
 
     return block_node.render(context)  # type: ignore[no-any-return]
