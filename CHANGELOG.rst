@@ -21,6 +21,8 @@ Bugfixes
 Maintenance
 -----------
 
+* Include tests in sdist distribution. Contributed by `@Natureshadow <https://github.com/Natureshadow>`_)
+  (`#30 <https://github.com/clokep/django-render-block/pull/30>`_)
 * Update linters and switch to ruff. (`#64 <https://github.com/clokep/django-render-block/pull/64>`_)
 * Support Python 3.13. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
 * Drop support for Python 3.8. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
