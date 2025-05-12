@@ -13,6 +13,11 @@ Improvements
   set to the result of calling ``render_block_to_string()``. Contributed by
   `@gogognome <https://github.com/gogognome>`_. (`#60 <https://github.com/clokep/django-render-block/pull/60>`_)
 
+Bugfixes
+--------
+
+* Fix incorrect type hints. Contributed by `@ma11011s <https://github.com/ma11011s>`_. (`#58 <https://github.com/clokep/django-render-block/pull/58>`_)
+
 Maintenance
 -----------
 

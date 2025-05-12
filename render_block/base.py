@@ -1,4 +1,4 @@
-from typing import List, Optional, Tuple, Union
+from typing import Any, Mapping, Optional, Sequence, Union
 
 from django.http import HttpRequest, HttpResponse
 from django.template import Context, loader
@@ -18,9 +18,9 @@ from render_block.exceptions import UnsupportedEngine
 
 
 def render_block_to_string(
-    template_name: Union[str, Tuple[str], List[str]],
+    template_name: Union[str, Sequence[str]],
     block_name: str,
-    context: Optional[Context] = None,
+    context: Optional[Union[Context, Mapping[str, Any]]] = None,
     request: Optional[HttpRequest] = None,
 ) -> str:
     """
@@ -62,9 +62,9 @@ def render_block_to_string(
 
 def render_block(
     request: HttpRequest,
-    template_name: str,
+    template_name: Union[str, Sequence[str]],
     block_name: str,
-    context: Optional[Context] = None,
+    context: Optional[Union[Context, Mapping[str, Any]]] = None,
     content_type: Optional[str] = None,
     status: Optional[int] = None,
 ) -> HttpResponse:
