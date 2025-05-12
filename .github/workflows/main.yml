@@ -9,13 +9,37 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    name: "Lint"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: "actions/setup-python@v3"
+        with:
+          python-version: "3.10"
+
+      - name: "Install dependencies"
+        run: python -m pip install ruff==0.11.9 mypy==1.15.0
+
+      - name: "Run ruff"
+        run: ruff check
+
+      - name: "Run ruff format"
+        run: ruff format
+
+      - name: "Run mypy"
+        run: mypy
+
   tests:
     name: "Python ${{ matrix.python-version }}"
+    needs: lint
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v2
@@ -34,10 +58,10 @@ jobs:
 
       - name: "Run tox targets for ${{ matrix.python-version }}"
         env:
-          TOX_SKIP_ENV: ".*djangomaster.*"
+          TOX_SKIP_ENV: ".*djangomain.*"
         run: "python -m tox"
 
-      - name: "Run tox targets for ${{ matrix.python-version }} for django master"
+      - name: "Run tox targets for ${{ matrix.python-version }} for django main"
         env:
           TOX_SKIP_ENV: ".*django[^m].*"
         run: "python -m tox"
