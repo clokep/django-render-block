@@ -3,7 +3,12 @@ from unittest import skip
 from django.template import Context
 from django.test import RequestFactory, TestCase, modify_settings, override_settings
 
-from render_block import BlockNotFound, UnsupportedEngine, render_block_to_string
+from render_block import (
+    BlockNotFound,
+    UnsupportedEngine,
+    render_block,
+    render_block_to_string,
+)
 
 
 class TestDjango(TestCase):
@@ -174,6 +179,20 @@ class TestDjango(TestCase):
 
         self.assertEqual(result, "/dummy-url")
 
+    @modify_settings(
+        INSTALLED_APPS={
+            "prepend": [
+                "django.contrib.auth",
+                "django.contrib.contenttypes",
+            ],
+        },
+    )
+    def test_render_block(self) -> None:
+        """Test rendering an individual block to a response."""
+        request = RequestFactory().get("dummy-url")
+        response = render_block(request, "test1.html", "block1")
+        self.assertEqual(response.content, b"block1 from test1")
+
 
 @override_settings(
     TEMPLATES=[
@@ -185,7 +204,7 @@ class TestDjango(TestCase):
     ]
 )
 class TestJinja2(TestCase):
-    """Test the Django templating engine."""
+    """Test the Jinja2 templating engine."""
 
     def assertExceptionMessageEquals(self, exception: Exception, expected: str) -> None:
         self.assertEqual(expected, exception.args[0])
@@ -271,3 +290,17 @@ class TestJinja2(TestCase):
         data = "block2 from test5"
         result = render_block_to_string("test5.html", "block2", {"foo": data})
         self.assertEqual(result, data)
+
+    @modify_settings(
+        INSTALLED_APPS={
+            "prepend": [
+                "django.contrib.auth",
+                "django.contrib.contenttypes",
+            ],
+        },
+    )
+    def test_render_block(self) -> None:
+        """Test rendering an individual block to a response."""
+        request = RequestFactory().get("dummy-url")
+        response = render_block(request, "test1.html", "block1")
+        self.assertEqual(response.content, b"block1 from test1")

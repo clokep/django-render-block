@@ -23,9 +23,9 @@ Features
 Requirements
 ============
 
-Django Render Block supports Django 4.2, 5.0, and 5.1 on Python 3.8, 3.9, 3.10,
-3.11 and 3.12 (see the Django documentation for which versions of Python are
-supported by particular Django versions).
+Django Render Block supports Django 4.2, 5.1, and 5.2 on Python 3.9, 3.10, 3.11,
+3.12, and 3.13 (see the `Django documentation <https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django>`_
+for which versions of Python are supported by particular Django versions).
 
 Examples
 ========
@@ -71,7 +71,7 @@ And from Python:
 API Reference
 =============
 
-The API is simple and attempts to mirror the built-in ``render_to_string`` API.
+The API is simple and attempts to mirror the built-in ``render_to_string`` and ``render`` API.
 
 ``render_block_to_string(template_name, block_name, context=None, request=None)``
 
@@ -94,6 +94,34 @@ The API is simple and attempts to mirror the built-in ``render_to_string`` API.
 
         ``request`` is optional and works only for Django templates. If both context and request
         are provided, a ``RequestContext`` will be used instead of a ``Context``.
+
+Similarly there is a ``render_block`` function which returns an `HttpResponse` with
+the content sent to the result of ``render_block_to_string`` with the same parameters.
+
+``render_block(request, template_name, block_name, context=None, content_type="text/html", status=200)``
+
+    ``request``
+        The request object used to render the template.
+
+    ``template_name``
+        The name of the template to load and render. If it’s a list of template
+        names, Django uses ``select_template()`` instead of ``get_template()``
+        to find the template.
+
+    ``block_name``
+        The name of the block to render from the above template.
+
+    ``context``
+        A ``dict`` to be used as the template’s context for rendering. A ``Context``
+        object can be provided for Django templates.
+
+        ``context`` is optional. If not provided, an empty context will be used.
+
+    ``content_type``
+        A ``str`` content type for the HTTP response.
+
+    ``status``
+        An ``int`` HTTP status code for the HTTP response.
 
 Exceptions
 ----------

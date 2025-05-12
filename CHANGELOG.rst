@@ -3,6 +3,24 @@
 Changelog
 #########
 
+next
+====
+
+Improvements
+------------
+
+* Add a new ``render_block`` function which returns a `HttpResponse` with the content
+  set to the result of calling ``render_block_to_string()``. Contributed by
+  `@gogognome <https://github.com/gogognome>`_. (`#60 <https://github.com/clokep/django-render-block/pull/60>`_)
+
+Maintenance
+-----------
+
+* Support Python 3.13. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+* Drop support for Python 3.8. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+* Support Django 5.2. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+* Drop support for Django 5.0. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+
 0.10 (July 15, 2024)
 ====================
 
