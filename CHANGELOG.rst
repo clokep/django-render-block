@@ -25,9 +25,11 @@ Maintenance
   (`#30 <https://github.com/clokep/django-render-block/pull/30>`_)
 * Update linters and switch to ruff. (`#64 <https://github.com/clokep/django-render-block/pull/64>`_)
 * Support Python 3.13. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
-* Drop support for Python 3.8. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+* Drop support for Python 3.8. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_,
+  `#65 <https://github.com/clokep/django-render-block/pull/65>`_)
 * Support Django 5.2. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
-* Drop support for Django 5.0. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_)
+* Drop support for Django 5.0. (`#62 <https://github.com/clokep/django-render-block/pull/62>`_,
+  `#65 <https://github.com/clokep/django-render-block/pull/65>`_)
 
 0.10 (July 15, 2024)
 ====================
