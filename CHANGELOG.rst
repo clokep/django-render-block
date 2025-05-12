@@ -6,6 +6,13 @@ Changelog
 next
 ====
 
+Improvements
+------------
+
+* Add a new ``render_block`` function which returns a `HttpResponse` with the content
+  set to the result of calling ``render_block_to_string()``. Contributed by
+  `@gogognome <https://github.com/gogognome>`_. (`#60 <https://github.com/clokep/django-render-block/pull/60>`_)
+
 Maintenance
 -----------
 
