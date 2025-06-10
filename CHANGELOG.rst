@@ -3,6 +3,15 @@
 Changelog
 #########
 
+next
+====
+
+Improvement
+-----------
+
+* Include `py.typed` file in wheels to enable type-checking ofapplications using django-render-block.
+  Contributed by `@mthuurne <https://github.com/mthuurne>`_. (`#66 <https://github.com/clokep/django-render-block/pull/66>`_)
+
 0.11 (May 12, 2025)
 ===================
 
