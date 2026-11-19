@@ -17,15 +17,17 @@ Features
 
 *   Render a specific block from a template
 *   Fully supports the Django templating engine
-*   Partially supports the `Jinja2 <http://jinja.pocoo.org/>`__ engine: it does
+*   Partially supports the `Jinja2 <https://jinja.palletsprojects.com/>`__ engine: it does
     not currently process the ``extends`` tag.
 
 Requirements
 ============
 
-Django Render Block supports Django 4.2, 5.1, and 5.2 on Python 3.9, 3.10, 3.11,
-3.12, and 3.13 (see the `Django documentation <https://docs.djangoproject.com/en/dev/faq/install/#what-python-version-can-i-use-with-django>`_
+Django Render Block supports Django 5.2, 6.0, and 6.1 on Python 3.11, 3.12,
+3.13, 3.14, and 3.15 (see the `Django documentation <https://docs.djangoproject.com/en/stable/faq/install/#what-python-version-can-i-use-with-django>`_
 for which versions of Python are supported by particular Django versions).
+Python 3.11 is only supported with Django 5.2; Django 6.0 and 6.1 require
+Python 3.12 or later.
 
 Examples
 ========

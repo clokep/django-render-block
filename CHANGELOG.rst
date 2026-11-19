@@ -6,11 +6,19 @@ Changelog
 next
 ====
 
-Improvement
+Improvements
+------------
+
+* Include `py.typed` file in wheels to enable type-checking of applications using django-render-block.
+  Contributed by `@mthuurne <https://github.com/mthuurne>`_. (`#66 <https://github.com/clokep/django-render-block/pull/66>`_)
+
+Maintenance
 -----------
 
-* Include `py.typed` file in wheels to enable type-checking ofapplications using django-render-block.
-  Contributed by `@mthuurne <https://github.com/mthuurne>`_. (`#66 <https://github.com/clokep/django-render-block/pull/66>`_)
+* Support Python 3.14 and 3.15.
+* Support Django 6.0 and 6.1.
+* Drop support for Python 3.9 and 3.10.
+* Drop support for Django 4.2 and 5.1.
 
 0.11 (May 12, 2025)
 ===================
