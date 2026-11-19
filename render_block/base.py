@@ -1,5 +1,5 @@
 from collections.abc import Mapping, Sequence
-from typing import Any, Optional, Union
+from typing import Any
 
 from django.http import HttpRequest, HttpResponse
 from django.template import Context, loader
@@ -19,10 +19,10 @@ from render_block.exceptions import UnsupportedEngine
 
 
 def render_block_to_string(
-    template_name: Union[str, Sequence[str]],
+    template_name: str | Sequence[str],
     block_name: str,
-    context: Optional[Union[Context, Mapping[str, Any]]] = None,
-    request: Optional[HttpRequest] = None,
+    context: Context | Mapping[str, Any] | None = None,
+    request: HttpRequest | None = None,
 ) -> str:
     """
     Loads the given template_name and renders the given block with the given
@@ -63,11 +63,11 @@ def render_block_to_string(
 
 def render_block(
     request: HttpRequest,
-    template_name: Union[str, Sequence[str]],
+    template_name: str | Sequence[str],
     block_name: str,
-    context: Optional[Union[Context, Mapping[str, Any]]] = None,
-    content_type: Optional[str] = None,
-    status: Optional[int] = None,
+    context: Context | Mapping[str, Any] | None = None,
+    content_type: str | None = None,
+    status: int | None = None,
 ) -> HttpResponse:
     """
     Return an HttpResponse whose content is filled with the result of calling
