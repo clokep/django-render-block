@@ -26,8 +26,6 @@ Requirements
 Django Render Block supports Django 5.2, 6.0, and 6.1 on Python 3.11, 3.12,
 3.13, 3.14, and 3.15 (see the `Django documentation <https://docs.djangoproject.com/en/stable/faq/install/#what-python-version-can-i-use-with-django>`_
 for which versions of Python are supported by particular Django versions).
-Python 3.11 is only supported with Django 5.2; Django 6.0 and 6.1 require
-Python 3.12 or later.
 
 Examples
 ========
