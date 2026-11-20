@@ -19,6 +19,7 @@ Maintenance
 * Support Django 6.0 and 6.1. (`#67 <https://github.com/clokep/django-render-block/pull/67>`_)
 * Drop support for Python 3.9 and 3.10. (`#67 <https://github.com/clokep/django-render-block/pull/67>`_)
 * Drop support for Django 4.2 and 5.1. (`#67 <https://github.com/clokep/django-render-block/pull/67>`_)
+* Update linters. (`#68 <https://github.com/clokep/django-render-block/pull/68>`_)
 
 0.11 (May 12, 2025)
 ===================

@@ -1,5 +1,4 @@
 from copy import copy
-from typing import Optional
 
 from django.http import HttpRequest
 from django.template import Context, RequestContext
@@ -20,7 +19,7 @@ def django_render_block(
     template: DjangoTemplate,
     block_name: str,
     context: Context,
-    request: Optional[HttpRequest] = None,
+    request: HttpRequest | None = None,
 ) -> str:
     # Create a Django Context if needed
     if isinstance(context, Context):
