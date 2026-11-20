@@ -24,9 +24,7 @@ TEMPLATES = [
     },
 ]
 
-MIDDLEWARE_CLASSES: tuple = ()
-
-EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+MIDDLEWARE = ()
 
 INSTALLED_APPS = ("tests",)
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
